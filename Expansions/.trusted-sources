@@ -34,8 +34,8 @@
 # arrive with scaffold updates (this file is on the updater's framework
 # allow-list).
 
-# --- Current official packs. Mirrored 2026-07-23 by Marshall (v5.1.0 release
-#     train) from mypka-expansions main @ 5d240e0 (pipeline pin commits
+# --- Current official packs. Mirrored 2026-07-23 by the v5.1.0 release
+#     train from mypka-expansions main @ 5d240e0 (pipeline pin commits
 #     b6b9c13, 8bf455f, 0a6012b, b4b6c0c, 7475136, 4faa561; cockpit pin
 #     5d240e0). Superseded-but-valid earlier pins (e.g. designer-pack@1.1.2)
 #     remain in the canonical registry; this mirror carries the versions
@@ -54,6 +54,7 @@ mypka-cockpit@1.4.1 sha256=2ac6ec6fd7d40694101a2455ef38c2a92af49ebe16bfece6654e6
 mypka-cockpit@1.5.0 sha256=cde4c231941d6931bbb06644e24ce568ef5e622e7c58e2a08321562b99839eab
 mypka-cockpit@1.5.1 sha256=8bfff385e972cbd497b1a1e28a10030876abe353641e4d4ee5852bd8da772c34
 mypka-cockpit@1.5.2 sha256=c2baccaee8b36ba79157a3e8ee8a4907618f2da232a6f796f3e3642c4a764c1d
+mypka-cockpit@1.6.0 sha256=3a883adea7570da94d30590f71d24b11666ac4397ff1be072a39a9024cbd07ec
 
 # --- WITHDRAWN (no longer offered or supported by myICOR) ---------------------
 #     A withdrawn pack's pins are dropped from this mirror and its slug is

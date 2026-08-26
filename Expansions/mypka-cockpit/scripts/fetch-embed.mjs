@@ -34,7 +34,7 @@
 //   source_url         the original URL the user saved
 //   source_type        always "outer_world"
 //
-// SECURITY POSTURE (Axon)
+// SECURITY POSTURE (security review)
 //   - All fetched strings are sanitized to TEXT: HTML tags stripped, control
 //     chars removed, whitespace collapsed, length-capped. No HTML reaches the
 //     frontmatter, so the cockpit's offline card renders inert text only.

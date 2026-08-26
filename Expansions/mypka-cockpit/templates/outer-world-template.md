@@ -8,7 +8,7 @@
 #   SOURCE (source_*) — what the external thing IS (immutable).
 #   EMBED card (FLAT embed_*) — the machine-fetched OpenGraph card; the fetcher
 #     writes these keys (images are LOCAL relative paths, localized at capture).
-#   ANNOTATION (tom_context + tags + linked_*) — your Inner-World take, on top.
+#   ANNOTATION (user_context + tags + linked_*) — your Inner-World take, on top.
 # See DATA-CONTRACT.md §14.
 
 doc_type: outer-world             # REQUIRED — literal 'outer-world'
@@ -34,7 +34,7 @@ embed_author:                     # author as the embed reported it
 embed_captured_at:                # ISO datetime the embed metadata was fetched
 
 # ── Inner-World ANNOTATION layer (your take, ON TOP of the source) ──
-tom_context:                      # why you kept it / what it connects to
+user_context:                      # why you kept it / what it connects to
 tags: []                          # free filter pills
 
 # ── Capturing-Beast bucket lanes (slugs; one save can touch several) ──

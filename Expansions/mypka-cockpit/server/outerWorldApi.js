@@ -122,7 +122,7 @@ function shapeRow(row) {
     embed_favicon: resolvePkmRelative(row.file_path, row.embed_favicon),
     embed_author: row.embed_author ?? null,
     embed_captured_at: row.embed_captured_at ?? null,
-    tom_context: row.tom_context ?? null,
+    user_context: row.user_context ?? null,
     tags: parseJsonArray(row.tags),
     linked_topics: parseJsonArray(row.linked_topics),
     linked_key_elements: parseJsonArray(row.linked_key_elements),
@@ -134,7 +134,7 @@ function shapeRow(row) {
 }
 
 // ── (a) Enumerate the Outer World library (the card grid) — §14.4(a) ───────────
-// Newest-saved first. Projects the embed_* + source + linked_* + tags + tom_context
+// Newest-saved first. Projects the embed_* + source + linked_* + tags + user_context
 // per the contract; DROPS the heavy `body` (+ raw_frontmatter) — the detail-large
 // by-slug fetch pulls those. Empty / absent table → calm empty envelope.
 export function listOuterWorld() {
@@ -145,7 +145,7 @@ export function listOuterWorld() {
               source_url, source_type, source_author, source_published,
               embed_kind, embed_title, embed_description, embed_image,
               embed_site_name, embed_domain, embed_favicon, embed_author,
-              embed_captured_at, tom_context, tags,
+              embed_captured_at, user_context, tags,
               linked_topics, linked_key_elements, linked_projects,
               linked_people, linked_organizations,
               file_path

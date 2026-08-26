@@ -18,7 +18,7 @@ embed_domain: notes.example
 embed_favicon: _assets/favicon-notes.png
 embed_author:
 embed_captured_at: 2026-06-16T08:25:00Z
-tom_context: A view = saves where all linked_* arrays are empty. The triage queue.
+user_context: A view = saves where all linked_* arrays are empty. The triage queue.
 tags:
   - idea
   - cockpit

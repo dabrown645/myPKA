@@ -1,10 +1,8 @@
 /**
  * InklineMark — the myICOR INKLINE infinity mark.
  *
- * ONE CONTINUOUS STROKE that genuinely crosses itself. The geometry is the
- * canonical brand path, copied verbatim from
- * `Team Knowledge/Brand Assets/myICOR Logo INKLINE/mark-marker.svg`
- * (ratified 2026-07-09 with the INKLINE brand). Do not redraw it by hand: the
+ * ONE CONTINUOUS STROKE that genuinely crosses itself. This is the canonical
+ * brand geometry (myICOR INKLINE mark; do not redraw it by hand): the
  * obvious naive version draws each lobe with matching vertical tangents at the
  * centre, so the loops merely touch and the mark reads as "OO" rather than an
  * infinity. That bug shipped once already.

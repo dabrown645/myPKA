@@ -1,9 +1,13 @@
 # Team Knowledge / scripts
 
-One-shot utility scripts that ship with the myPKA scaffold.
+Utility scripts that ship with the myPKA scaffold. Two families live here:
 
-These are **not** part of the day-to-day myPKA — they're tools you run once
-(or a handful of times) to migrate or repair content, then forget about.
+- **One-shot migration and repair tools** you run once (or a handful of times),
+  then forget about: `migrate-inline-fields-to-frontmatter.py`.
+- **The Weekly Reports pipeline** you run recurring to produce The Week in Ink:
+  `weekly-report-gather.py`, `weekly-report-render.py`, `weekly-reports-nav.py`,
+  plus their shared rendering assets in `weekly-report-assets/`. See
+  [[PKM/Weekly Reports/INDEX]] for the full production procedure.
 
 ---
 
@@ -26,7 +30,7 @@ text:
 
 v1.3.0 makes **YAML frontmatter** the canonical source of truth (per
 `Guidelines/GL-002-frontmatter-conventions.md` and the entity templates in
-`Templates/`). The Properties tab in mypka-interface v0.3.4+ parses
+`Templates/`). The Properties tab in the myPKA Cockpit parses
 frontmatter; the SQLite converter (SOP-002) extracts structured columns
 from frontmatter. Inline body fields parse to **nothing** — silent data
 loss.
@@ -101,7 +105,7 @@ or pass an absolute path from anywhere.
 
 Once you've run it on your myPKA and you're satisfied with the result, you
 can safely delete `Team Knowledge/scripts/migrate-inline-fields-to-frontmatter.py`
-and this README. They serve no day-to-day purpose; the canonical authority
+and its section of this README. They serve no day-to-day purpose; the canonical authority
 for frontmatter shape going forward is `Guidelines/GL-002-frontmatter-conventions.md`
 and `Templates/`.
 
@@ -122,3 +126,62 @@ with:
 The script's regex is conservative by design (it requires `**Label:** value`
 on its own line). False negatives (skipped fields) are preferred to false
 positives (corrupted prose).
+
+---
+
+## The Weekly Reports pipeline
+
+Three scripts produce **The Week in Ink**, the Friday weekly recap filed under
+`PKM/Weekly Reports/YYYY/MM/<slug>/`. Run them in order; the full production
+procedure and reading guide live in [[PKM/Weekly Reports/INDEX]]. Frontmatter
+schema: [[GL-002-frontmatter-conventions]] section "Weekly reports".
+
+### `weekly-report-gather.py`
+
+Assembles the deterministic source bundle for one edition. Given a Friday
+anchor date, it collects everything captured in the covered week (the
+preceding Saturday through that Friday, inclusive): Journal entries, Images
+captures, Deliverables folders, session logs, and the week's aggregate
+signals. Emits one JSON bundle plus a density verdict, so a thin week is
+filed honestly as `sparse` instead of being padded.
+
+```bash
+# one anchor, bundle into a working dir
+python3 "Team Knowledge/scripts/weekly-report-gather.py" 2026-07-10 --outdir /tmp/wk
+
+# every Friday in a span (backfill)
+python3 "Team Knowledge/scripts/weekly-report-gather.py" --range 2026-05-01 2026-07-24 --outdir /tmp/wk
+```
+
+### `weekly-report-render.py`
+
+Turns a gathered bundle into a filed edition inside
+`PKM/Weekly Reports/YYYY/MM/<slug>/`: `metadata.md` (frontmatter plus a real
+prose mirror of the week) and the rendered deck HTML. Assembles from captured
+facts only, never invents. A `.hand-built` marker file inside an edition
+folder protects that edition's HTML from being overwritten, even with
+`--force`.
+
+```bash
+python3 "Team Knowledge/scripts/weekly-report-render.py" /tmp/wk/2026-07-10.json
+python3 "Team Knowledge/scripts/weekly-report-render.py" --all /tmp/wk
+```
+
+### `weekly-reports-nav.py`
+
+Injects the self-contained, foldable archive drawer into every rendered
+edition, so any edition is a complete entry point to the whole archive.
+Idempotent; re-run it after filing a new edition. `--check` reports staleness
+without writing anything, which suits a pre-publish gate.
+
+```bash
+python3 "Team Knowledge/scripts/weekly-reports-nav.py"
+python3 "Team Knowledge/scripts/weekly-reports-nav.py" --check
+```
+
+### `weekly-report-assets/`
+
+Shared rendering assets for the deck: `deck.css`, `deck.js`,
+`inkline-fonts.css`, and `FONT-LICENSES.md`. This is a framework path, so the
+assets receive scaffold updates; editions reference them rather than carrying
+copies.

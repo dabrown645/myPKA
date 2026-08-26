@@ -2,23 +2,74 @@
 # validation-script.sh — verify a folder is myPKA scaffold v2.x-compliant.
 #
 # Usage:
-#   bash validation-script.sh <scaffold-root>
+#   bash validation-script.sh [--links] [--indexes] [--all] <scaffold-root>
+#
+# Flags (opt-in check groups; without flags the script runs exactly the
+# baseline checks it always has):
+#   --links    Wikilink resolution over every .md file (Obsidian semantics:
+#              bare stem, path suffix, |alias, ![[embed]], frontmatter
+#              aliases; code fences excluded). Intentional-unresolved
+#              classes (convention prose, template placeholders, worked
+#              examples, Expansions/*/examples/ demo content) are
+#              suppressed; everything else unresolved FAILs.
+#   --indexes  INDEX integrity: SOPs/Workstreams/Guidelines/Templates
+#              INDEX coverage in both directions, Expansions/INDEX.md
+#              version cells vs each expansion.yaml, PKM/INDEX.md section
+#              links.
+#   --all      Everything: the baseline checks plus --links and --indexes.
+#
+# Both groups run via scripts/validate-links-indexes.py (python3, stdlib
+# only), resolved relative to this script with a fallback to the target
+# root. python3 missing or helper missing is a hard FAIL when a flag asks
+# for these groups, never a silent skip.
 #
 # Exit codes:
 #   0  = compliant
 #   1  = one or more checks failed (see stderr)
 #   2  = invalid invocation
 #
-# Dependencies: bash, find, grep, awk, head, wc, basename, dirname. Standard Unix.
+# Dependencies: bash, find, grep, awk, head, wc, basename, dirname. Standard
+# Unix. Plus python3 (stdlib only) for the opt-in --links/--indexes groups.
+
+# ----------------------------------------------------------------------------
+# --links inline ignore list (worked-example stems, audit 2026-08-26 §1
+# class C). These wikilink targets appear in shipped SOP/contract/template
+# prose as worked examples and intentionally do not ship as files. Exact
+# target match, case-insensitive, comma-separated. Extend this list when a
+# new worked example is authored; never add a genuinely-broken link here.
+# ----------------------------------------------------------------------------
+LINKS_IGNORE_STEMS="tsk-2026-05-09-001-mux-webhook-401,tsk-2026-05-10-001-document-secret-rotation-runbook,tsk-2026-05-12-001-install-mcp,tsk-2026-05-13-001-settings-audit,2026-05-09-tauri-appimage-vs-deb,2026-05-10-secret-rotation-discipline,entry-1,entry-2,jane-doe,acme-co,source-title,Source Title,Title,stoicism"
 
 set -u
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <scaffold-root>" >&2
-  exit 2
-fi
+CHECK_LINKS=0
+CHECK_INDEXES=0
+ROOT=""
 
-ROOT="$1"
+usage_exit() {
+  echo "Usage: $0 [--links] [--indexes] [--all] <scaffold-root>" >&2
+  exit 2
+}
+
+for arg in "$@"; do
+  case "$arg" in
+    --links)   CHECK_LINKS=1 ;;
+    --indexes) CHECK_INDEXES=1 ;;
+    --all)     CHECK_LINKS=1; CHECK_INDEXES=1 ;;
+    -*)        usage_exit ;;
+    *)
+      if [ -z "$ROOT" ]; then
+        ROOT="$arg"
+      else
+        usage_exit
+      fi
+      ;;
+  esac
+done
+
+if [ -z "$ROOT" ]; then
+  usage_exit
+fi
 
 if [ ! -d "$ROOT" ]; then
   echo "FAIL: '$ROOT' is not a directory" >&2
@@ -477,6 +528,66 @@ else
       warn "manifest.json scaffold_version ($MANIFEST_VER) != VERSION ($VERSION_VALUE) — SSOT drift"
     fi
   fi
+fi
+
+# ----------------------------------------------------------------------------
+# 11+12. Opt-in groups: --links (wikilink resolution) and --indexes (INDEX
+# integrity). Delegated to scripts/validate-links-indexes.py; this shell
+# stays thin and only routes the helper's OK/WARN/FAIL records through the
+# same counters as every other check. See the helper's docstring for the
+# full semantics and the suppression classes.
+# ----------------------------------------------------------------------------
+
+run_helper_group() {
+  # run_helper_group <label> <flag>
+  local label="$1"
+  local flag="$2"
+  local helper=""
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
+  if [ -n "$script_dir" ] && [ -f "$script_dir/scripts/validate-links-indexes.py" ]; then
+    helper="$script_dir/scripts/validate-links-indexes.py"
+  elif [ -f "$ROOT/scripts/validate-links-indexes.py" ]; then
+    helper="$ROOT/scripts/validate-links-indexes.py"
+  fi
+  if [ -z "$helper" ]; then
+    fail "$label requested but scripts/validate-links-indexes.py not found (looked next to this script and under $ROOT/scripts/)"
+    return
+  fi
+  if ! command -v python3 >/dev/null 2>&1; then
+    fail "$label requested but python3 is not on PATH"
+    return
+  fi
+  local out rc
+  out=$(python3 "$helper" --root "$ROOT" "$flag" --ignore-stems "$LINKS_IGNORE_STEMS" 2>&1)
+  rc=$?
+  if [ "$rc" -gt 1 ]; then
+    fail "$label helper exited with code $rc:"
+    printf '%s\n' "$out" | head -10 | sed 's/^/      /' >&2
+    return
+  fi
+  local kind msg
+  while IFS=$'\t' read -r kind msg; do
+    case "$kind" in
+      FAIL) fail "$msg" ;;
+      WARN) warn "$msg" ;;
+      OK)   pass "$msg" ;;
+      "")   ;;
+      *)    warn "$label helper produced unexpected output: $kind" ;;
+    esac
+  done <<< "$out"
+}
+
+if [ "$CHECK_LINKS" -eq 1 ]; then
+  echo
+  echo "--- wikilink resolution (--links) ---"
+  run_helper_group "--links" "--links"
+fi
+
+if [ "$CHECK_INDEXES" -eq 1 ]; then
+  echo
+  echo "--- INDEX integrity (--indexes) ---"
+  run_helper_group "--indexes" "--indexes"
 fi
 
 # ----------------------------------------------------------------------------

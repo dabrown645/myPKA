@@ -17,7 +17,7 @@ A note in your myPKA has two layers:
 
 The split is load-bearing for three reasons:
 
-- The right-sidebar **Properties tab** in mypka-interface parses frontmatter and renders it as a typed key-value UI. No frontmatter, no Properties tab.
+- The right-sidebar **Properties tab** in the myPKA Cockpit parses frontmatter and renders it as a typed key-value UI. No frontmatter, no Properties tab.
 - The **SQLite migration** ([[SOP-002-convert-mypka-to-sqlite]]) reads frontmatter into typed columns. Inline body text like `**Email:** jane@example.com` migrates as zero structured data.
 - New users (and new agents) need a predictable shape. If every note invents its own field names, search and automation collapse.
 
@@ -71,7 +71,7 @@ organization: acme-corp           # points to PKM/CRM/Organizations/acme-corp.md
 
 Why slug not title: the slug is stable across renames inside frontmatter, the title is the field stored on the target file and may change. Storing the slug means a target rename (with file move) only needs to update one place.
 
-The mypka-interface Properties tab renders the resolved title with the slug as a tooltip. The SQLite migration ([[SOP-002-convert-mypka-to-sqlite]]) resolves the slug to the FK integer at conversion time.
+The myPKA Cockpit Properties tab renders the resolved title with the slug as a tooltip. The SQLite migration ([[SOP-002-convert-mypka-to-sqlite]]) resolves the slug to the FK integer at conversion time.
 
 ### 5. Required fields are minimal, optional fields are abundant
 
@@ -103,6 +103,10 @@ If you find yourself wanting a field that is not in this Guideline:
 3. Then use it.
 
 One-off `notes_jane_likes` style keys break the SQLite migration silently. Free-form notes go in the body.
+
+### 7. `aliases` - optional on any note
+
+`aliases` holds alternative names a note can be linked by (the Obsidian-native property). YAML list of display-form strings: `aliases: [Dr Schmidt]` on `dr-schmidt.md` is what lets `[[Dr Schmidt]]` resolve. Optional on every entity type. Use it when a note is naturally referenced by a title-form name that differs from its slug; it is a link-resolution affordance, not a queryable data field.
 
 ## Entity schemas
 
@@ -422,6 +426,7 @@ If the rules change, update this file. Do not duplicate the change into SOPs, Wo
 
 ### Version history
 
+- **v2.6** - Documented **`aliases`** as an optional field on any entity note (new Core rule 7): the Obsidian-native list of alternative link names, e.g. `aliases: [Dr Schmidt]` on `dr-schmidt.md` so `[[Dr Schmidt]]` resolves. Additive and backward-compatible; the seeded People sample now carries it. In the same pass, the retired product name "mypka-interface" was replaced by "the myPKA Cockpit" in the two prose mentions in this file.
 - **v2.5** - Added the **Weekly reports** entity schema (`type: weekly-report`, `PKM/Weekly Reports/YYYY/MM/<slug>/metadata.md`) for The Week in Ink, the Friday weekly recap. One folder per edition; `metadata.md` carries the provenance frontmatter plus a prose mirror of the week, next to the rendered deck. Documents the anchor-versus-span trap (`iso_week` describes the Friday anchor, not the covered days, so coverage is queried via `week_start`/`week_end`), the media SSOT rule (originals stay in `PKM/Audio` / `PKM/Videos` / Brand Assets and are referenced; only regenerable image `renditions/` sit inside the edition), and the body convention (a real day-by-day mirror, because the body is the searchable artefact). Mirrored by the new `weekly_reports` table in the cockpit regen. Additive and backward-compatible - no existing note changes.
 - **v2.4** - Added the **`model`** optional contract-level field (new section "Specialist-contract frontmatter"). `model` applies to specialist contracts (`Team/<Name> - <Role>/AGENTS.md`) and their `.claude/agents/<slug>.md` shims, not to PKM entity notes. Value is a portable tier alias (`reasoning` | `balanced` | `fast`); omit to inherit the session/harness default. The harness adapter resolves the alias to a concrete model (e.g. Claude Code maps `reasoning`/`balanced`/`fast` to Opus/Sonnet/Haiku in the shim); the contract stays provider-neutral. An explicit `provider/model-id` string is permitted but flagged by the agnosticism-audit as a coupling warning. OpenRouter documented as the supported BYO-key router (Anthropic-compatible endpoint via `ANTHROPIC_BASE_URL`), with alias-to-slug resolution living in the adapter. Added Lex's ToS INVARIANT: an Anthropic-resolved `model` called by our own code must use an API key / Bedrock / Vertex, never a subscription OAuth token, and never `~/.claude/.credentials.json` (co-enforced with Vex by the agnosticism-audit). Additive and backward-compatible - contracts without `model` stay valid and inherit the default.
 - **v2.3** - My Life model encoded as a first-class schema concept. Added the intro section "The My Life model - buckets, the Goal layer, and the filter test" (four buckets: Key Element = permanent, Project = bounded, Habit = cadenced, Topic = exploration; Goals as an operating layer, not a fifth bucket; a filter-test table for correct placement). **Goal** `key_element` is now REQUIRED and constrained to Key-Element slugs only (the anchor rule; rule-5 required-fields table updated to `name, key_element`); added the **carrier doctrine** (a Goal is carried by exactly one of two siblings - a Project via `linked_projects` OR a Habit via `linked_habits`, never both, never a Topic, no third shape) and `linked_topics` (context only). **Topic** gains `lifecycle` (exploring | promoted | dormant) + `promoted_to` (Key-Element slug) to encode Topic → Key Element graduation as first-class, and the prose now distinguishes graduation from the Open-Question → Project move. **Key Element** gains `promoted_from` (reverse of Topic `promoted_to`) and an `archived` status (the reverse transition - a domain leaving the life). **Habit** gains `linked_goals` (the Habit side of the carrier doctrine). **Project** schema formalized `linked_topics` and documented `linked_goals` as the Project side of the carrier doctrine. All changes additive and backward-compatible - notes without the new fields stay valid; the SQLite migration picks up new optional columns as NULL. Authored under §"Never invent ad-hoc fields" and §"How to extend" path 1. The four My Life templates (goal, topic, key-element, habit) were updated in the same change.

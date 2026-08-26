@@ -4599,11 +4599,11 @@ body.chat-locked {
 /* A marker-click flash on the subagent card holding a docked confirm. */
 .chat-subagent.is-flash { animation: chat-rail-flash 1100ms ease-out; }
 
-/* Docked Tier-2 action inside a subagent card (Axon §3). */
+/* Docked Tier-2 action inside a subagent card (AI-chat spec §3). */
 .chat-subagent-docked-actions { margin-top: 4px; }
 .chat-subagent-docked-answer { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
 
-/* Backgrounded pill (Axon §2.3) — "this dispatch is working in the background, not
+/* Backgrounded pill (AI-chat spec §2.3) — "this dispatch is working in the background, not
    blocking". A subtle info-toned chip next to the name. */
 .chat-subagent-bg-pill {
   display: inline-flex; align-items: center; gap: 3px; margin-left: 6px;
@@ -4623,7 +4623,7 @@ body.chat-locked {
 .chat-readmore:hover { text-decoration: underline; text-underline-offset: 2px; }
 .chat-readmore:focus-visible { outline: 2px solid var(--accent-marker); outline-offset: 2px; border-radius: 4px; }
 
-/* Per-subagent TOOL TIMELINE (Axon §2.3) — the tool chips that used to land on Larry's
+/* Per-subagent TOOL TIMELINE (AI-chat spec §2.3) — the tool chips that used to land on Larry's
    main bubble now live here, attributed to the subagent that ran them (feedback #5). A compact
    vertical list of tool rows with running/done/error icons, in call order. */
 .chat-tool-timeline { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
@@ -4639,7 +4639,7 @@ body.chat-locked {
 .chat-tool-step.is-error .chat-tool-step-name { color: var(--status-error-text); }
 .chat-tool-step-icon .is-spinning { animation: pin-rotate 760ms linear infinite; }
 
-/* ---- PROGRESS RAIL: slim thread marker + compact rail items (Axon §3) ------ */
+/* ---- PROGRESS RAIL: slim thread marker + compact rail items (AI-chat spec §3) ------ */
 /* Feedback #3: the thread shows only a slim "approval waiting →" marker; the action lives in
    the rail. The marker is amber-toned (warning = needs action) and docks under the turn. */
 .chat-approval-marker {

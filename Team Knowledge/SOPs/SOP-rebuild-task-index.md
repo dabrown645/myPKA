@@ -90,7 +90,7 @@ _Last rebuilt: <RFC3339 UTC>_
 
 ## By assignee
 - mack: <N> open, <N> in-progress (<M> blocked)
-- knox: ...
+- silas: ...
 
 ## Recently closed (last 7 days)
 - <date> [[<id>-<slug>]] — done — <closer-name>
@@ -133,7 +133,7 @@ If a task's filename slug doesn't match its frontmatter `title`-slug (because th
 
 ## Worked example
 
-Knox just closed a task. The close SOP's last step is:
+A specialist just closed a task. The close SOP's last step is:
 
 ```bash
 bash <path-to>/rebuild-task-index.sh

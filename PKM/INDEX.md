@@ -9,6 +9,7 @@ This is the user's personal knowledge. The team's operations side lives in [[Tea
 - **[[PKM/CRM/INDEX|CRM]]** - People and Organizations. Cross-linked into Journal entries via `[[wikilinks]]`.
 - **[[PKM/Images/INDEX|Images]]** - single shared image bucket. Nested by `YYYY/MM/`. Images live here, never duplicated elsewhere; entries embed via `![[Images/YYYY/MM/...]]`.
 - **[[PKM/Journal/INDEX|Journal]]** - daily entries, one file per day, nested by `YYYY/MM/`. The inbox of your myPKA.
+- **[[PKM/Weekly Reports/INDEX|Weekly Reports]]** - The Week in Ink, the Friday weekly recap. One folder per edition, nested by `YYYY/MM/<slug>/`. Assembled from what the week already captured, never written from memory.
 
 ## How the wiki connects
 
@@ -21,7 +22,7 @@ This is the user's personal knowledge. The team's operations side lives in [[Tea
 
 If the same fact about a person, project, or topic shows up in two places, the file in the relevant concept folder is the source of truth. The Journal entry references it via `[[wikilinks]]`. No duplication.
 
-See root [[AGENTS]] for the full SSOT Golden Rule. See [[GL-001-file-naming-conventions]] for naming.
+See the root `AGENTS.md` for the full SSOT Golden Rule. See [[GL-001-file-naming-conventions]] for naming.
 
 ## How the team writes here
 

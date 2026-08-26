@@ -9,8 +9,8 @@ iso_week: YYYY-Www
 title: ""
 status: draft
 html_render: the-week-in-ink-YYYY-MM-DD.html
-podcast_path: ../../../../Audio/YYYY/MM/YYYY-MM-DD-week-in-ink-epNN.mp3
-podcast_duration: "00:00"
+podcast_path: ../../../../Audio/YYYY/MM/YYYY-MM-DD-week-in-ink-epNN.mp3   # optional - "" when there is no episode; PKM/Audio/ does not ship and is created on first use
+podcast_duration: "00:00"                                                  # optional - "" when there is no episode
 source_journal_entries: []
 source_images: []
 pivotal_moments: []
@@ -39,7 +39,7 @@ State the week label caveat if `iso_week` does not match the covered span (it us
 
 ## Provenance
 
-Gathered from N [[PKM/Journal]] entries in the covered window and N [[PKM/Images]] captures. Record any rendition whose source is not obvious from the filename, and flag any deliberate exception to the week window (for example, a photo taken after `week_end` included so a story could close on screen).
+Gathered from N [[PKM/Journal/INDEX|Journal]] entries in the covered window and N [[PKM/Images/INDEX|Images]] captures. Record any rendition whose source is not obvious from the filename, and flag any deliberate exception to the week window (for example, a photo taken after `week_end` included so a story could close on screen).
 
 ## Media placement
 

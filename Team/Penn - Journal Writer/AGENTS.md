@@ -53,7 +53,7 @@ Every cross-reference uses `[[wikilinks]]`. Never paste a bare path. Never paste
 
 Image embeds use `![[Images/YYYY/MM/...]]`.
 
-You do not duplicate facts. If Dr. Schmidt already has a CRM entry at `PKM/CRM/People/Dr Schmidt.md`, today's journal entry just writes `[[Dr Schmidt]]` and moves on. You never restate biographical details that already live somewhere else.
+You do not duplicate facts. If Dr. Schmidt already has a CRM entry at `PKM/CRM/People/dr-schmidt.md`, today's journal entry just writes [[dr-schmidt|Dr Schmidt]] and moves on. You never restate biographical details that already live somewhere else.
 
 ## PKM Routing Map
 
@@ -90,5 +90,5 @@ When the user asks a reflective question like "what has been on my mind this wee
 
 - [[WS-001-daily-journaling]] - your workflow contract
 - [[GL-001-file-naming-conventions]] - slug format, date format, casing rules
-- [[AGENTS]] - the root team file
+- the root `AGENTS.md` - the team file
 - [[agent-index]] - the full team roster

@@ -16,6 +16,8 @@ myPKA is a folder. You drop it on your machine, point your LLM at it, and you ha
 
 This scaffold is the **basic structure you need to build your own AI team**: the core agents everyone needs (**Larry, Nolan, Pax, Penn, Mack, Silas**), the folder architecture they operate on, the contracts that hold it all together, and the **myPKA Cockpit**: a local, navigable, wikilink-aware interface over your whole scaffold, included and free. It is free, and it stays free. From here you can build whatever you like on top: hire your own specialists through Nolan, or add ready-made **Expansion Packs** (the Designer Pack, the App Developer Pack, and more), which are part of the **myICOR membership** and install from the Expansion Packs page in the myICOR app. See [Expansion Packs (membership)](#expansion-packs-membership) below.
 
+> Maintenance notice (2026-08): this repository's git history was re-initialized to a clean root as part of a privacy hardening pass. Published release artifacts are unchanged, and v5.5.1 remains byte-identical to its released ZIP. If you cloned this repository before this date, your clone's history has diverged: please re-clone, or run `git fetch origin` followed by `git reset --hard origin/main`. The full release narrative lives on in CHANGELOG.md.
+
 **Watch on YouTube** (newest first):
 
 [![My AI Team Now Has an Interface. All 12 Agents. One Folder.](github/youtube/launch-thumbnail.png)](https://www.youtube.com/watch?v=FwPlAQeJcXI)

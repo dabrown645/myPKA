@@ -57,7 +57,7 @@ Every section that has its own index uses the literal filename `INDEX.md`. Do no
 
 ### 6. SOP, Workstream, Guideline numbering
 
-- SOPs: `SOP-NNN-<slug>.md` where `NNN` is zero-padded to three digits (`001`, `002`, ...).
+- SOPs: `SOP-NNN-<slug>.md` where `NNN` is zero-padded to three digits (`001`, `002`, ...). Framework-lifecycle SOPs (the task and journal plumbing) are un-numbered by design (`SOP-<verb>-<noun>.md`); numbered slots are reserved for domain SOPs.
 - Workstreams: `WS-NNN-<slug>.md`.
 - Guidelines: `GL-NNN-<slug>.md`.
 
@@ -75,8 +75,8 @@ If multiple images come from the same source on the same day, append `-1`, `-2`,
 
 If two files would end up with the same filename, append a short qualifier:
 
-- `dr-schmidt.md` (the cardiologist) vs `dr-schmidt-lawyer.md` (the lawyer).
-- Reference the qualified filename via full path in `[[wikilinks]]`: `[[CRM/People/dr-schmidt-lawyer]]`.
+- `dr-schmidt.md` (the physician) vs a hypothetical `dr-schmidt-lawyer.md` (the lawyer).
+- Reference the qualified filename via full path in `[[wikilinks]]`: `CRM/People/dr-schmidt-lawyer` (a hypothetical example; only `dr-schmidt.md` ships).
 
 ### 9. Forbidden characters in filenames
 

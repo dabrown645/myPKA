@@ -41,7 +41,7 @@ ignored; **fewer** columns break the query.
 | **Hub — manual-entry original-text** ("unfold original") | `journal` | — | `journal(integration_status, original_body, manually_added)` (see §10) | `integration_status`, `original_body`, `manually_added` |
 | **Hub — random quote** | `quotes` | — | `quotes(slug, quote_text, author, author_slug, source, quote_year, tags, file_path)` (see §8) | `doc_type: quote`, `author` (string or `[[wikilink]]`), `source`, `tags`, `year`; body = quote text |
 | **Library** (recipes, movies, + adapted) | `library_registry`, `recipes`, `movies` (+ any adapted library table) | — | `library_registry(library_slug, nav_label, nav_icon, doc_type, sort_order)`; per-library invariant cols + axis cols (see §11) | `doc_type: <recipe\|movie\|…>` discriminator + the library's axis frontmatter fields; body = item detail |
-| **Outer World** (mymind-style saved content) | `outer_world` | — | `outer_world(slug, title, captured_on, source_url, source_type, source_author, embed_*, tom_context, tags, linked_topics, linked_key_elements, linked_projects, linked_people, linked_organizations, body, file_path)` (see §14) | `doc_type: outer-world`, `source_url`, `source_type`, `captured_on`, the FLAT `embed_*` card fields, `tom_context`, `tags`, `linked_*`; body = `## Summary`/`## Clip`/`## Context` |
+| **Outer World** (mymind-style saved content) | `outer_world` | — | `outer_world(slug, title, captured_on, source_url, source_type, source_author, embed_*, user_context, tags, linked_topics, linked_key_elements, linked_projects, linked_people, linked_organizations, body, file_path)` (see §14) | `doc_type: outer-world`, `source_url`, `source_type`, `captured_on`, the FLAT `embed_*` card fields, `user_context`, `tags`, `linked_*`; body = `## Summary`/`## Clip`/`## Context` |
 | **Graph views** (core) | `links`, entity tables | — | `goals.key_element`, `goals.linked_projects`, `topics.key_element`, `json_extract(raw_frontmatter,'$.lifecycle' / '$.promoted_to' / '$.linked_habits')` | `key_element`, `linked_projects`, `lifecycle`, `promoted_to`, `linked_habits` |
 | **Team Knowledge browser** (governance docs) | `workstreams`, `sops`, `guidelines`, `links` | — | `<table>(slug, doc_id, title, status, owner, doc_type, summary, version, triggered_by, tags, body, file_path, raw_frontmatter)` (see §17); `links WHERE source_table IN ('workstreams','sops','guidelines')` for outbound refs + backlinks | **No YAML frontmatter** — parsed from the `- **Label:** value` header bullet block under the H1 (Status/Owner(s)/Default owner/Type/Version/Triggered by/References). Sources `Team Knowledge/Workstreams\|SOPs\|Guidelines/**`. |
 | **Team roster** (core) | `agents` | — | `slug, name, folder, agent_status, bio, avatar_path, owner` (only `agent_status='active'`) | the `Team/<Name - Role>/AGENTS.md` frontmatter |
@@ -939,17 +939,17 @@ every regen):
    — the immutable record of what the external thing IS.
 2. **EMBED card** (the FLAT `embed_*` fields) — the machine-fetched OpenGraph card
    the cockpit renders mymind-style.
-3. **ANNOTATION** (`tom_context` + `tags` + the five `linked_*` bucket lanes) — the
+3. **ANNOTATION** (`user_context` + `tags` + the five `linked_*` bucket lanes) — the
    Inner-World layer the user lays on top. The source stays Outer World; the
    annotation layers on.
 
-### 14.2 The FLAT `embed_*` contract (Axon's embed spec + Mack's fetcher output)
+### 14.2 The FLAT `embed_*` contract (the embed spec + Mack's fetcher output)
 
 The embed metadata is stored as **FLAT, top-level frontmatter keys — NOT a nested
 `embed:` block.** Flat keeps the note Obsidian-safe (each shows as its own
 Properties field) and gives each its own sortable/filterable SQLite column. The
 fetcher (Mack) writes **exactly** these keys; the regen reads them 1:1. **The names
-are coordinated with Axon's embed spec and locked:**
+are coordinated with the embed spec and locked:**
 
 `embed_kind`, `embed_title`, `embed_description`, `embed_image`, `embed_site_name`,
 `embed_domain`, `embed_favicon`, `embed_author`, `embed_captured_at`.
@@ -976,7 +976,7 @@ source_url: https://…           # REQUIRED — no URL, no Outer World entry
 source_type: video              # article | post | video | book | idea | news (open vocab)
 source_author: Build & Learn    # optional
 source_published: 2026-05-28    # optional ISO date the SOURCE was published
-# ── EMBED card (FLAT embed_* — Axon/Mack contract; images are LOCAL paths) ──
+# ── EMBED card (FLAT embed_* — the embed-fetcher contract; images are LOCAL paths) ──
 embed_kind: video
 embed_title: "…"
 embed_description: "…"
@@ -987,7 +987,7 @@ embed_favicon: _assets/favicon-video.png
 embed_author: Build & Learn
 embed_captured_at: 2026-06-14T11:40:00Z
 # ── Inner-World ANNOTATION layer ──
-tom_context: why it was kept / what it connects to
+user_context: why it was kept / what it connects to
 tags: [opengraph, embeds, video]
 # ── Capturing-Beast bucket lanes (slugs; projected as columns for grid filtering) ──
 linked_topics: [rich-embeds]
@@ -1008,9 +1008,15 @@ linked_organizations: []
   `links` join. They are JSON-array TEXT of **slugs** (FK-style), like
   `goals.linked_projects`.
 - `embed_title` / `embed_description` / `embed_image` / `embed_site_name` /
-  `embed_favicon` / `embed_author` / `tom_context` are read with the
+  `embed_favicon` / `embed_author` / `user_context` are read with the
   **non-wikilink-stripping** getter so `#`, `[[`, and multi-line block scalars in
   the fetched/authored text survive byte-for-byte.
+- **Deprecation: `tom_context` is the former name of `user_context`.** The regen
+  accepts the old frontmatter key as a deprecated alias at ingest (read old, write
+  new): a note carrying only `tom_context` still mirrors into the `user_context`
+  column, and `user_context` wins when both keys are present. New notes, templates,
+  and writers use `user_context` only; the column, the API payload field, and the
+  UI type are `user_context`.
 
 ### 14.4 Column contract for Felix — the Outer World UI module
 
@@ -1035,7 +1041,7 @@ linked_organizations: []
 | `embed_favicon` | TEXT | **LOCAL** favicon path (card chrome / image fallback) |
 | `embed_author` | TEXT | author as the embed reported it |
 | `embed_captured_at` | TEXT | ISO datetime the embed was fetched (staleness signal) |
-| `tom_context` | TEXT | the user's annotation snippet shown on the card |
+| `user_context` | TEXT | the user's annotation snippet shown on the card |
 | `tags` | TEXT | JSON-array TEXT of tag strings — facet pills |
 | `linked_topics` | TEXT | JSON-array TEXT of Topic slugs — **filter** |
 | `linked_key_elements` | TEXT | JSON-array TEXT of Key Element slugs — **filter** |
@@ -1055,7 +1061,7 @@ SELECT slug, title, status, captured_on,
        source_url, source_type, source_author, source_published,
        embed_kind, embed_title, embed_description, embed_image,
        embed_site_name, embed_domain, embed_favicon, embed_author,
-       tom_context, tags,
+       user_context, tags,
        linked_topics, linked_key_elements, linked_projects,
        linked_people, linked_organizations,
        file_path
@@ -1118,7 +1124,7 @@ SELECT * FROM outer_world WHERE slug = :slug;
 The detail-large view = the **embed card** (`embed_image` or favicon fallback +
 `embed_title` + `embed_site_name` + the `source_url` open-out + `source_type` pill +
 `source_author`/`source_published`) **above** the rendered markdown body, with
-`tom_context` as the highlighted annotation and the `linked_*` / `tags` as navigable
+`user_context` as the highlighted annotation and the `linked_*` / `tags` as navigable
 chips. `embed_image` / `embed_favicon` are local paths served via the jailed
 `/api/cockpit/media` route — **no remote image fetch, no CSP `img-src` widening** (see
 §14.2).

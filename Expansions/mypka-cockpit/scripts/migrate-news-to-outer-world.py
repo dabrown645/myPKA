@@ -45,7 +45,8 @@ FIELD MAPPING (legacy News → Outer World schema; see DATA-CONTRACT §14)
                               embed_image/embed_site_name/embed_favicon  (if a legacy
                               nested or flat OG block existed)
     embed_fetched_at          -> embed_captured_at
-  Everything else (tom_context, tags, source_url, urgency, title, status, …) is
+    tom_context               -> user_context  (deprecated field name)
+  Everything else (tags, source_url, urgency, title, status, …) is
   carried through UNCHANGED. Unmapped legacy keys are preserved verbatim so no data
   is ever lost; the regen simply ignores columns it doesn't read.
 
@@ -81,6 +82,10 @@ SCALAR_RENAMES = {
     "channel": "embed_site_name",
     "published_date": "source_published",
     "embed_fetched_at": "embed_captured_at",
+    # Deprecated field name (renamed in the Outer World contract; the regen also
+    # accepts the old key as a read-only alias). Applied only when user_context
+    # is absent, like every entry in this map.
+    "tom_context": "user_context",
 }
 # List renames (old key -> new key). Values carried verbatim.
 LIST_RENAMES = {

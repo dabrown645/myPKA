@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The version in `expansion.yaml` is the single source of truth for a release; the
 root `package.json` and `package-lock.json` mirror it.
 
+## [1.6.0] - 2026-08-26
+
+**Outer World field rename with a compatibility alias, plus a comment hygiene sweep.**
+Ships with scaffold 5.5.2. Rebuild the web bundle and re-run the regen after updating.
+
+### Changed
+
+- **BREAKING (Outer World data contract):** the annotation field `tom_context` is
+  renamed to `user_context` across the note frontmatter schema, the `outer_world`
+  mirror column, the regen, the server API payload, the web client, the template,
+  and the example notes. Rebuild `mypka.db` (run the regen) after updating so the
+  column and the UI agree.
+
+### Deprecated
+
+- `tom_context` in note frontmatter: the regen accepts it as a deprecated alias of
+  `user_context` (read old, write new), so existing notes keep working without
+  edits; `user_context` wins when both keys are present. The news migration script
+  also renames the key when it is carried over. New notes should use
+  `user_context`. See `sqlite-extension/DATA-CONTRACT.md` section 14.
+
+### Fixed
+
+- **Engineering comments and docs no longer carry internal process residue.**
+  A sweep replaces internal names and private-vault path references with role
+  wording and shipped paths (code comments, review docs, the update checklist,
+  example sources), aligned with the scaffold 5.5.2 hygiene pass.
+
 ## [1.5.2] - 2026-07-28
 
 **Licence-label correction. No code changes; the application is identical to 1.5.1.**
@@ -54,8 +82,8 @@ root `package.json` and `package-lock.json` mirror it.
 
 ### Changed
 
-- **INKLINE re-skin: the Cockpit moves from the retired GL-003 v4 "Graphite" design
-  to the GL-003 v5.32 INKLINE brand ("a calm teacher's blackboard at dusk").** UI
+- **INKLINE re-skin: the Cockpit moves from the retired "Graphite" design to the
+  INKLINE design system (Designer Pack; "a calm teacher's blackboard at dusk").** UI
   layer only; no behavior, data, API, or schema changes. By layer:
   - **Tokens** (`web/src/index.css`): the dark default becomes the ink room
     (`#0C0E12` ink / `#12151B` card / `#181C24` muted / `#1C212B` overlay, plus

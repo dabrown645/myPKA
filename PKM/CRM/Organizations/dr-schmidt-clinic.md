@@ -1,16 +1,24 @@
+---
+name: Dr. Schmidt Clinic
+org_type: clinic
+industry: healthcare
+---
+
 # Dr. Schmidt Clinic
 
 > [!example] Seeded course sample
 > This is a worked example the myICOR myPKA course walks through — it shows the canonical shape to follow. Keep it as a reference and adapt it, or replace its contents with your own.
 
-**Name:** Dr. Schmidt Clinic
-**Sector:** healthcare, internal medicine
-**Location:** mid-sized city, central district, ground floor of a converted residential building.
+## What they do
 
-**Key contacts:**
+Small internal-medicine practice in a mid-sized city: central district, ground floor of a converted residential building.
+
+## People here
+
 - [[dr-schmidt]] - lead physician and founder
 
-**Notes:**
+## Notes
+
 - small practice, two physicians and a handful of support staff
 - patient-first feel rather than throughput-first
 - runs on a mostly paper workflow with selective digital tools, which is part of why the AI conversation came up

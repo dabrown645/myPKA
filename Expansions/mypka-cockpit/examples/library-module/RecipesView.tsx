@@ -6,7 +6,7 @@
 //
 // Read-only, loopback/LAN posture like every other view. Recipes are CANONICAL
 // markdown (PKM/My Life/Recipes/<slug>.md), mirrored into mypka.db; this view is
-// a derived read. The table is 0 rows today (Mei seeds content later), so the
+// a derived read. The table is 0 rows today (content is seeded later), so the
 // EMPTY STATE is first-class — a friendly "library not yet filled" panel, never a
 // broken/blank page. NULL filter cells render blank, never `unknown`.
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -196,8 +196,8 @@ export function RecipesView() {
         </p>
       </header>
 
-      {/* Empty state — 0 rows today (Mei seeds content once the ingredients
-          are settled). Friendly, not broken. */}
+      {/* Empty state — 0 rows today (content is seeded once the recipe
+          collection starts). Friendly, not broken. */}
       {total === 0 ? (
         <div className="library-empty">
           <span className="library-empty-mark" aria-hidden="true">

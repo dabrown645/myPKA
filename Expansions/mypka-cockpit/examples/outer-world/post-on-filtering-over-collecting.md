@@ -16,7 +16,7 @@ embed_domain: social.example
 embed_favicon: _assets/favicon-social.png
 embed_author: "@alex_builds"
 embed_captured_at: 2026-06-13T18:02:00Z
-tom_context: A blunt restatement of the Capturing Beast in one line — worth keeping.
+user_context: A blunt restatement of the Capturing Beast in one line — worth keeping.
 tags:
   - pkm
   - second-brain

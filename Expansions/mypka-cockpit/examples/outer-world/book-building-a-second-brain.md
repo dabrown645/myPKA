@@ -16,7 +16,7 @@ embed_domain: books.example
 embed_favicon: _assets/favicon-books.png
 embed_author: Priya Nadel
 embed_captured_at: 2026-06-15T20:11:00Z
-tom_context: |
+user_context: |
   Want to read this — the "connect on save" idea is the same one driving the
   Capturing-Beast link step in the cockpit.
 tags:

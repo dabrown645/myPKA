@@ -283,7 +283,7 @@ three steps. Do not improvise a different path.
    (the tweet/post text already stripped to inert TEXT, plus `embed_title`,
    `embed_image`, `embed_author`, etc.). Splice that block into the new Outer World
    note's frontmatter; the note **body** is the extracted text plus the user's own
-   annotation (their `tom_context`). The cockpit renders the rich card *offline*
+   annotation (their `user_context`). The cockpit renders the rich card *offline*
    from the flat `embed_*` fields. **Never paste a raw embed blockquote, widget,
    or `<script>` tag into the note** — the cockpit's CSP blocks inline scripts, so
    a raw embed does not render and the card errors. Text-plus-`embed_*` is the only

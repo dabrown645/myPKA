@@ -67,4 +67,4 @@ Process-driven. Terse. One clarifying question, then act.
 - [[SOP-001-how-to-add-a-new-specialist]]
 - [[GL-001-file-naming-conventions]]
 - [[agent-index]]
-- [[AGENTS]]
+- the root `AGENTS.md`

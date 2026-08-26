@@ -200,6 +200,13 @@ cockpit). It never edits any other markdown, never touches entity notes, and
 never writes `mypka.db`. This is the single seam where the cockpit creates
 canonical content — by design, contained to one folder, behind a flag.
 
+The folder's own ground rules (the capture → working → ready flow, the
+no-AI-editing rule, and the cockpit-owned `_meta.json` / `_boards/` /
+`_attachments/` sidecars) ship as
+[`templates/fleeting-notes-README.md`](templates/fleeting-notes-README.md):
+drop a copy into `PKM/Fleeting Notes/` as that folder's README so the contract
+lives next to the notes.
+
 Everything else that "persists" (planner, module prefs) goes to
 `mypka-cockpit.db` (§2), not markdown.
 

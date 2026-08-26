@@ -43,7 +43,7 @@ contract.
 > blockquotes, or `<script>` — store only the extracted text and the `embed_*`
 > fields the script emits.
 
-This snippet is the authoritative one-liner Marshall surfaces in the install and
+This snippet is the authoritative one-liner surfaced in the install and
 capture documentation. It exists because the original capture flow plain-fetched
 an X URL, hit a 402 auth wall, and wrongly fell back to opening a browser — the
 fetcher now removes both the need to authenticate and the temptation to browse.
@@ -61,8 +61,9 @@ This is the step the LLM performs when the user saves a link as an Outer World n
    ```
 
 2. **Take the emitted `embed_*` block** and splice it into the new note's YAML
-   frontmatter (alongside whatever other frontmatter Silas's Outer World note
-   template defines — `title`, `tags`, etc.).
+   frontmatter, alongside the other fields the Outer World note template
+   ([`templates/outer-world-template.md`](../templates/outer-world-template.md))
+   defines: `title`, `tags`, etc.
 
 3. **The localized image** already sits under `PKM/Images/YYYY/MM/`. The cockpit
    serves it via its existing read-only media route
@@ -139,7 +140,7 @@ Ordering matters and mirrors myICOR: video → social/post → direct-image → 
 
 ---
 
-## Security posture (Axon)
+## Security posture (architecture review)
 
 - **All fetched strings → inert TEXT.** `sanitizeText` strips HTML tags, decodes a
   small safe set of entities, removes control chars, collapses whitespace, and

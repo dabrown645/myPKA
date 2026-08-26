@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-// Tailwind maps to GL-003 v5 INKLINE semantic tokens (CSS variables in index.css).
+// Tailwind maps to the INKLINE design system's semantic tokens (Designer Pack;
+// CSS variables in index.css).
 // No hardcoded hex / Tailwind palette colors anywhere in the app — tokens only.
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],

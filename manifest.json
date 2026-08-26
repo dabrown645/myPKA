@@ -1,8 +1,8 @@
 {
   "_about": "This is the single source of truth (SSOT) for the myPKA scaffold version and for the framework/user-state seam. The scaffold version lives HERE, authoritatively. VERSION and .scaffold-version are kept for back-compat with older tooling, but they mirror this file; if they ever disagree, manifest.json wins. The framework_paths and user_state_paths blocks are machine-readable: the updater (scripts/update-scaffold.py) reads them to decide which files it MAY overwrite (framework, ours, upgradable) and which it must NEVER touch (user state, yours, sacred). Markdown is canonical; this JSON is the control plane that lets the folder update itself safely.",
-  "scaffold_version": "5.5.1",
-  "released": "2026-08-08",
-  "from": "5.4.0",
+  "scaffold_version": "5.5.2",
+  "released": "2026-08-26",
+  "from": "5.5.1",
   "breaking": false,
   "distribution": {
     "_about": "Who published THIS copy of the scaffold. The official myICOR release sets id 'myICOR/myPKA' and is_official_myicor_release true. Anyone distributing a derivative (permitted under CC BY-SA 4.0, see DERIVATIVES.md) MUST set their own id, set is_official_myicor_release to false, and record the upstream version they derived from in derived_from. This block is the provenance record: it is what tells a version check, an updater, and a human reading the folder whose release this is. It carries no telemetry and is never transmitted.",
@@ -75,7 +75,7 @@
       {
         "slug": "mypka-cockpit",
         "name": "myPKA Cockpit",
-        "expansion_yaml_version": "1.5.2",
+        "expansion_yaml_version": "1.6.0",
         "updater": "Expansions/mypka-cockpit/scripts/UPDATE-COCKPIT.md",
         "update_policy": "defer-to-expansion",
         "note": "Runtime Expansion, bundled and free. Has source code, an npm build, and its own SQLite migration lifecycle. The scaffold updater must NOT swap cockpit code. If the cockpit is behind its latest release, the scaffold updater only prints a notice and points the member at the cockpit updater."
@@ -93,112 +93,157 @@
     "disclosure": "On boot, myPKA fetches one version string from the official myPKA repository (myICOR/myPKA) to tell you if an update exists. That request sends no data about you or your vault. It is read-only and fails silently if you are offline. Set update_check.enabled to false to turn it off."
   },
   "changes": {
-    "_about": "Per-path change record for THIS release (5.4.0 -> 5.5.1), so the updater can print a plain-English plan. change_type is one of: added | changed | moved. HEADLINE of 5.5.0: a privacy fix. Personal context belonging to the scaffold's author shipped inside the released template from v3.0.0 onward and was reported privately by a member. The Cockpit's health dashboard carried hardcoded plan strings and threshold comments describing one specific person's medical situation, and the install-time personalization pass could rewrite the author's name to the installing member's, which re-attributed that content to them and removed the only clue it was not theirs. This release strips the author's personal context and roughly 100 name mentions across 45 files, scopes the personalization rule so it can never touch source code, fixes weekly-report edition numbering (which hardcoded an anchor from the author's own archive and implied dozens of back-issues a new member never had), and adds scripts/check-no-personal-data.py plus a privacy-guard workflow as the gate that should have caught it. Releases v3.0.0 through v5.4.0 are withdrawn.",
+    "_about": "Per-path change record for THIS release (5.5.1 -> 5.5.2), so the updater can print a plain-English plan. change_type is one of: added | changed | moved. HEADLINE of 5.5.2: a housekeeping release preparing the next major version. The eight seeded PKM samples are regenerated from their templates with the YAML frontmatter they claim to demonstrate; three shipped subsystems (task lifecycle, Weekly Reports, Templates plus scripts) are wired back into the navigation hubs; broken wikilinks and stale strings are fixed; validation-script.sh learns opt-in --links and --indexes groups; a comment sweep removes internal process residue; and the Cockpit renames the Outer World annotation field tom_context to user_context with a deprecated alias (Cockpit 1.5.2 -> 1.6.0).",
     "paths": [
       {
-        "path": "Expansions/mypka-cockpit/web/src/lib/status.ts",
+        "path": "PKM/CRM/People/dr-schmidt.md",
         "change_type": "changed",
-        "note": "Author's medical context removed: hardcoded plan strings (insurance scheme, dated personal target, outstanding specialist referral) and threshold comments naming an age. Reference ranges are now general published guidance. BETTER_WHEN.weight -1 -> null, because weight has no clinically correct direction without context."
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved. (Person; gains aliases so [[Dr Schmidt]] resolves.)"
       },
       {
-        "path": "Expansions/mypka-cockpit/server/markdown.js",
+        "path": "PKM/CRM/Organizations/dr-schmidt-clinic.md",
         "change_type": "changed",
-        "note": "Code comments naming specific medical conditions replaced with a pointer to the EXAM_NOTE_HINTS env var, which was already the configurable, empty-by-default mechanism."
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
       },
       {
-        "path": "Expansions/mypka-cockpit/web/src/sections/Planned.tsx",
+        "path": "PKM/Documents/passport.md",
         "change_type": "changed",
-        "note": "Comment naming specific medical projects replaced with a pointer to EXAM_NOTE_HINTS."
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "PKM/My Life/Goals/ship-mvp-by-q3.md",
+        "change_type": "changed",
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "PKM/My Life/Habits/morning-build-session.md",
+        "change_type": "changed",
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "PKM/My Life/Key Elements/health.md",
+        "change_type": "changed",
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "PKM/My Life/Projects/side-project-mvp.md",
+        "change_type": "changed",
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "PKM/My Life/Topics/ai-tooling.md",
+        "change_type": "changed",
+        "note": "Regenerated from its template in Team Knowledge/Templates/: YAML frontmatter per GL-002, narrative preserved."
+      },
+      {
+        "path": "Team Knowledge/INDEX.md",
+        "change_type": "changed",
+        "note": "Hub wiring: task lifecycle, Weekly Reports, and Templates plus scripts sections added."
+      },
+      {
+        "path": "PKM/INDEX.md",
+        "change_type": "changed",
+        "note": "Hub wiring: Weekly Reports section added."
       },
       {
         "path": "AGENTS.md",
         "change_type": "changed",
-        "note": "The Personalization section no longer names a person as an example stand-in, and now states that addressing the user by name governs conversation only and is never a licence to edit files. Writing or rewriting a person's name inside source code is forbidden."
+        "note": "Folder map gains the missing subsystem lines; broken links and stale strings fixed."
       },
       {
-        "path": "ADAPTER-PROMPT.md",
+        "path": "Team Knowledge/SOPs/INDEX.md",
         "change_type": "changed",
-        "note": "Step 4 gains two explicit rules: substitute the {{USER_NAME}} token and nothing else, and never edit source code during personalization."
+        "note": "The eight previously unlisted lifecycle SOPs added as rows."
       },
       {
-        "path": "scripts/check-no-personal-data.py",
+        "path": "Team Knowledge/scripts/README.md",
+        "change_type": "changed",
+        "note": "The three weekly-report scripts documented."
+      },
+      {
+        "path": "validation-script.sh",
+        "change_type": "changed",
+        "note": "Learns --links, --indexes and --all: opt-in wikilink resolution and INDEX coverage checks. Baseline checks unchanged."
+      },
+      {
+        "path": "scripts/validate-links-indexes.py",
         "change_type": "added",
-        "note": "New. Release gate scanning for maintainer personal data (names, insurance-scheme markers, named medical conditions, ages, outstanding-referral phrasing). Exits non-zero with file:line per finding. Names come from a repo-local .privacy-guard.json that is NOT shipped, so no maintainer name lands in your folder; --require-config makes a missing name list a failure rather than a quiet pass."
+        "note": "New. Python helper behind the validator's --links and --indexes groups (stdlib only)."
       },
       {
-        "path": ".github/workflows/privacy-guard.yml",
-        "change_type": "added",
-        "note": "New. Runs the personal-data scan on every push and pull request with no path filter. Intended as a required status check on main."
-      },
-      {
-        "path": ".github/workflows/release-scaffold.yml",
+        "path": "Expansions/mypka-cockpit/scripts/regen-mypka-db.py",
         "change_type": "changed",
-        "note": "The cockpit job runs the personal-data scan against the release artifact before any other guard, so a tag pushed from a stale branch cannot publish a leak."
+        "note": "Outer World: writes user_context; reads tom_context as a deprecated alias (read old, write new)."
       },
       {
-        "path": "Team Knowledge/scripts/weekly-report-render.py",
+        "path": "Expansions/mypka-cockpit/server/outerWorldApi.js",
         "change_type": "changed",
-        "note": "edition_no() no longer hardcodes an anchor from the author's own archive; numbering derives from your own first filed edition and starts at 1. Pin an existing series with WEEKLY_REPORT_EDITION_ANCHOR=\"YYYY-MM-DD:N\". Private-vault provenance comments and dangling SOP/GL references removed; the reflection-entry flag is renamed and no longer matches a private specialist slug."
+        "note": "API payload field renamed tom_context -> user_context."
       },
       {
-        "path": "Team Knowledge/scripts/weekly-report-gather.py",
+        "path": "Expansions/mypka-cockpit/sqlite-extension/schema/08-module-outer-world.sql",
         "change_type": "changed",
-        "note": "The reflection-entry detector no longer matches the author's private specialist slug; it matches generic slug markers and is documented as adjustable."
+        "note": "Mirror column renamed user_context; the regen still reads the old frontmatter key."
       },
       {
-        "path": "Team Knowledge/scripts/weekly-reports-nav.py",
+        "path": "Expansions/mypka-cockpit/sqlite-extension/DATA-CONTRACT.md",
         "change_type": "changed",
-        "note": "Dangling references to guidelines and SOPs that never ship removed."
+        "note": "Section 14 documents the rename and the deprecated alias."
       },
       {
-        "path": "Team Knowledge/scripts/weekly-report-assets/deck.css",
+        "path": "Expansions/mypka-cockpit/web/src/views/OuterWorldView.tsx",
         "change_type": "changed",
-        "note": "Provenance comments naming the author's own edition removed; dangling guideline citations generalised."
+        "note": "Web client reads user_context; rename applied across cockpitTypes.ts, the template and the example notes."
       },
       {
-        "path": "Team Knowledge/scripts/weekly-report-assets/deck.js",
+        "path": "Expansions/mypka-cockpit/templates/outer-world-template.md",
         "change_type": "changed",
-        "note": "Provenance comments naming the author's own edition removed."
+        "note": "Template field renamed user_context."
       },
       {
-        "path": "Team Knowledge/Guidelines/GL-002-frontmatter-conventions.md",
+        "path": "Expansions/mypka-cockpit/scripts/migrate-news-to-outer-world.py",
         "change_type": "changed",
-        "note": "The iso_week worked example no longer cites a real edition from the author's vault."
+        "note": "Migration renames tom_context to user_context when carrying a note over."
+      },
+      {
+        "path": "Expansions/mypka-cockpit/expansion.yaml",
+        "change_type": "changed",
+        "note": "Cockpit 1.5.2 -> 1.6.0 (field rename plus comment sweep); package.json mirrors it."
+      },
+      {
+        "path": "Expansions/mypka-cockpit/CHANGELOG.md",
+        "change_type": "changed",
+        "note": "The [1.6.0] entry: rename with deprecated alias, comment sweep."
+      },
+      {
+        "path": "Expansions/INDEX.md",
+        "change_type": "changed",
+        "note": "Cockpit row refreshed to 1.6.0; stale regen stamp corrected."
+      },
+      {
+        "path": "Team Knowledge/SOPs/SOP-read-own-journal.md",
+        "change_type": "changed",
+        "note": "Comment sweep: internal process names and private-vault paths replaced with role wording and shipped paths. Same sweep across cockpit docs, examples, code comments, and Expansions/.trusted-sources."
       },
       {
         "path": "manifest.json",
         "change_type": "changed",
-        "note": "scaffold_version 5.4.0 -> 5.5.1; changes block rewritten for this release."
+        "note": "scaffold_version 5.5.1 -> 5.5.2; released 2026-08-26; changes block rewritten for this release."
       },
       {
         "path": "VERSION",
         "change_type": "changed",
-        "note": "5.4.0 -> 5.5.1 (mirror of manifest)."
+        "note": "5.5.1 -> 5.5.2 (mirror of manifest)."
       },
       {
         "path": ".scaffold-version",
         "change_type": "changed",
-        "note": "5.4.0 -> 5.5.1 (mirror of manifest)."
+        "note": "5.5.1 -> 5.5.2 (mirror of manifest)."
       },
       {
         "path": "CHANGELOG.md",
         "change_type": "changed",
-        "note": "Prepended the [5.5.1] entry (5.5.0 was withdrawn minutes after publication)."
-      },
-      {
-        "path": "SECURITY.md",
-        "change_type": "changed",
-        "note": "Supported-versions table moved to the 5.5.0 line; v3.0.0 through v5.4.0 marked withdrawn."
-      },
-      {
-        "path": ".gitattributes",
-        "change_type": "added",
-        "note": "New. Marks .github/ as export-ignore so repository infrastructure (issue templates, PR template, our own CI pipeline and the Supabase project URL, edge-function name and secret names inside it) no longer ships inside the scaffold ZIP. It was already outside framework_paths and user_state_paths, so the updater never managed it."
-      },
-      {
-        "path": ".privacy-guard.json",
-        "change_type": "added",
-        "note": "New, and deliberately NOT shipped (export-ignore). Holds the maintainer names and exact allowed strings for scripts/check-no-personal-data.py, so the guard can check for a name without carrying that name into every member's folder."
+        "note": "Prepended the [5.5.2] entry."
       }
     ]
   },

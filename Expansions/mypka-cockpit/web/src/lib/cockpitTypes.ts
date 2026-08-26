@@ -498,7 +498,7 @@ export interface OuterWorldItem {
   embed_favicon: string | null;
   embed_author: string | null;
   embed_captured_at: string | null;
-  tom_context: string | null;
+  user_context: string | null;
   tags: string[];
   linked_topics: string[];
   linked_key_elements: string[];

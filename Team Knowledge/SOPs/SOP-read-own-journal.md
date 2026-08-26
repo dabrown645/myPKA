@@ -85,9 +85,9 @@ If your journal grows past ~50 entries, don't read every entry every time. Steps
 
 ## Worked example
 
-Knox, booted by Larry to work on `tsk-2026-05-12-001-tauri-windows-codesign`. Tags: `[tauri, windows, codesign, ci]`.
+A desktop-apps specialist, booted by Larry to work on `tsk-YYYY-MM-DD-001-desktop-codesign`. Tags: `[tauri, windows, codesign, ci]`.
 
-Step 1 — task's `linked_journal_entries` includes `[2026-04-15-tauri-v2-capabilities-default]`. Knox reads it in full.
+Step 1 — task's `linked_journal_entries` includes `[2026-04-15-tauri-v2-capabilities-default]`. The specialist reads it in full.
 
 Step 2 — recent entries:
 
@@ -97,7 +97,7 @@ Step 2 — recent entries:
 2026-04-28-mac-notarytool-vs-altool.md
 ```
 
-Knox skims titles. The notarytool one and the toolchain-pinning one stand out.
+The specialist skims titles. The notarytool one and the toolchain-pinning one stand out.
 
 Step 3 — tag match for `tauri`:
 
@@ -107,14 +107,14 @@ Step 3 — tag match for `tauri`:
 .../2026-04-15-tauri-v2-capabilities-default.md   (already read)
 ```
 
-Knox reads the notarytool one. The "When does NOT apply" section says ignore for Windows. Good — saved a wrong path.
+The specialist reads the notarytool one. The "When does NOT apply" section says ignore for Windows. Good — saved a wrong path.
 
 Step 5 — no prior Windows-codesign entry exists. Note to self: journal at close.
 
 Step 6 — appends to the task's `## Updates`:
 
 ```
-- 2026-05-12 09:30 (knox) — priors loaded: [[2026-04-15-tauri-v2-capabilities-default]] (capabilities convention applies); [[2026-04-28-mac-notarytool-vs-altool]] (Mac-only — does NOT apply for Windows). No prior Windows-codesign entry; will journal at close if I learn something durable.
+- 2026-05-12 09:30 (desktop-dev) — priors loaded: [[2026-04-15-tauri-v2-capabilities-default]] (capabilities convention applies); [[2026-04-28-mac-notarytool-vs-altool]] (Mac-only — does NOT apply for Windows). No prior Windows-codesign entry; will journal at close if I learn something durable.
 ```
 
 Then starts the task.

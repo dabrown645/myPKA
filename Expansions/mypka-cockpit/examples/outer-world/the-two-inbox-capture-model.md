@@ -8,7 +8,7 @@ source_url: https://example.com/blog/two-inbox-capture-model
 source_type: article                    # article | post | video | book | idea | news (+ open vocab)
 source_author: Dana Whitfield
 source_published: 2026-06-10
-# ── EMBED card (FLAT embed_* — Axon/Mack fetcher contract; image is LOCAL) ──
+# ── EMBED card (FLAT embed_* — the embed-fetcher contract; image is LOCAL) ──
 embed_kind: article
 embed_title: "A Two-Inbox Model for Personal Knowledge Capture"
 embed_description: "Separate what you create from what you save, and the filtering problem solves itself."
@@ -19,7 +19,7 @@ embed_favicon: _assets/favicon-example.png
 embed_author: Dana Whitfield
 embed_captured_at: 2026-06-12T09:14:00Z
 # ── Inner-World ANNOTATION layer (laid ON TOP of the source) ──
-tom_context: |
+user_context: |
   The split between an Outer-World inbox and an Inner-World inbox is the piece my
   own capture flow was missing — saved links kept getting mislabelled as journal.
 tags:

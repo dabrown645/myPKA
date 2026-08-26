@@ -7,7 +7,7 @@
 //                              search over the in-memory rows). First-class empty
 //                              state on a bare scaffold (table absent/empty).
 //   #/outer-world/:slug      → that item opened in the LARGE detail view (the embed
-//                              header ABOVE the rendered markdown body + tom_context
+//                              header ABOVE the rendered markdown body + user_context
 //                              annotation + linked entities + the connections canvas,
 //                              like a note/library-item page).
 //
@@ -15,7 +15,7 @@
 // `available`; a bare scaffold (no outer_world table) degrades to a calm empty
 // state — never a blank page, never a crash (§14 degrade-gracefully).
 //
-// SECURITY POSTURE (Axon / Vex). The cards are STATIC, prop-driven, offline:
+// SECURITY POSTURE (Vex). The cards are STATIC, prop-driven, offline:
 //   * NO iframes, NO third-party scripts, NO oEmbed/X-widget/YouTube-player embeds.
 //   * Metadata is rendered as TEXT ONLY — no dangerouslySetInnerHTML anywhere.
 //   * embed_image / embed_favicon are LOCAL paths (localized at capture, §14.2)
@@ -182,8 +182,8 @@ function OuterWorldCard({ item }: { item: OuterWorldItem }) {
             )}
 
             {/* The Inner-World annotation snippet — what it is kept for. */}
-            {item.tom_context && (
-              <p className="ow-card-note">{item.tom_context}</p>
+            {item.user_context && (
+              <p className="ow-card-note">{item.user_context}</p>
             )}
 
             {item.tags.length > 0 && (
@@ -271,7 +271,7 @@ function OuterWorldGrid() {
       }
       if (q) {
         const hay = [
-          it.title, it.embed_title, it.embed_description, it.tom_context,
+          it.title, it.embed_title, it.embed_description, it.user_context,
           it.source_author, it.embed_author, it.embed_site_name, it.embed_domain,
           it.source_type, ...it.tags,
         ].filter(Boolean).join(' ').toLowerCase();
@@ -499,9 +499,9 @@ function OuterWorldItemView({ itemSlug }: { itemSlug: string }) {
 
       <div className="note-grid">
         <div className="note-body-col">
-          {/* tom_context — the highlighted Inner-World annotation. */}
-          {item.tom_context && (
-            <blockquote className="ow-detail-context">{item.tom_context}</blockquote>
+          {/* user_context — the highlighted Inner-World annotation. */}
+          {item.user_context && (
+            <blockquote className="ow-detail-context">{item.user_context}</blockquote>
           )}
           {body.trim() ? (
             <WikiMarkdown body={body} />

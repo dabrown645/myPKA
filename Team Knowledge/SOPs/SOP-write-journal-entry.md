@@ -52,7 +52,7 @@ Bad: `learnings`, `notes`, `friday-thoughts`.
 Team/<Name> - <Role>/journal/YYYY-MM-DD-<topical-slug>.md
 ```
 
-Date is **today** — the birthdate of the insight. Slug describes the *insight*, not the *event* that produced it. "tauri-appimage-vs-deb" not "knox-shipped-v0.4.2".
+Date is **today** — the birthdate of the insight. Slug describes the *insight*, not the *event* that produced it. "tauri-appimage-vs-deb" not "desktop-dev-shipped-v0.4.2".
 
 ### 3. Copy the template
 
@@ -117,19 +117,19 @@ Tags should be functionally distinct, not synonyms. `tauri` and `tauri-v2` is fi
 
 ## Worked example
 
-Knox, after shipping v0.4.2:
+A desktop-apps specialist, after shipping v0.4.2:
 
-File: `Team/Knox - Cross-Platform Native Developer/journal/2026-05-09-tauri-appimage-vs-deb.md`
+File: `Team/<Name> - <Role>/journal/2026-05-09-tauri-appimage-vs-deb.md`
 
 ```markdown
 ---
-agent_id: knox
+agent_id: desktop-dev
 type: journal-entry
 created: 2026-05-09T18:42:00Z
 updated: 2026-05-09T18:42:00Z
 topic: tauri-build-pipelines
 tags: [tauri, linux, appimage, deb, bun]
-linked_session_logs: [2026-05-09-17-30_knox_v0.4.2-tauri-linux-deb-pivot]
+linked_session_logs: [2026-05-09-17-30_desktop-dev_v0.4.2-tauri-linux-deb-pivot]
 linked_tasks: []
 related_journal_entries: []
 status: durable
@@ -154,12 +154,12 @@ v0.4.0–v0.4.1 the linux-x64 Tauri leg failed to bundle. v0.4.2 pivoted to .deb
 - After Tauri ships PR #12491 (linuxdeploy pre-deploy filter)
 
 ## Evidence
-- [[2026-05-09-17-30_knox_v0.4.2-tauri-linux-deb-pivot]] (session log with full RCA)
+- [[2026-05-09-17-30_desktop-dev_v0.4.2-tauri-linux-deb-pivot]] (session log with full RCA)
 - Tauri PR https://github.com/tauri-apps/tauri/pull/12491
 - Commit dd624ac → 293a30b on `mypka-interface-browser`
 ```
 
-Knox then appends to the session log: `Journal: [[2026-05-09-tauri-appimage-vs-deb]]`.
+The specialist then appends to the session log: `Journal: [[2026-05-09-tauri-appimage-vs-deb]]`.
 
 ## Common mistakes
 

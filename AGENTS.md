@@ -67,6 +67,7 @@ See [[Team/agent-index]] for the full routing table. Six core specialists ship i
   - `SOPs/` - atomic step-by-step procedures.
   - `Workstreams/` - recurring multi-agent orchestrations.
   - `Guidelines/` - static reference info (naming, tone, defaults).
+  - `tasks/` - cross-session work continuity: task files move through `open/` → `in-progress/` → `done/YYYY/MM/` or `cancelled/YYYY/MM/`.
   - `session-logs/YYYY/MM/` - append-only record of every session.
 - `PKM/` - the user's personal knowledge. See [[PKM/INDEX]].
   - `My Life/` - the four buckets (Key Elements, Projects, Habits, Topics) plus the Goals operating layer. Every Goal anchors to a Key Element (never a Project/Topic); see [[GL-002-frontmatter-conventions]] for the anchoring + carrier + Topic-promotion rules.
@@ -74,6 +75,7 @@ See [[Team/agent-index]] for the full routing table. Six core specialists ship i
   - `CRM/People/` and `CRM/Organizations/`.
   - `Images/YYYY/MM/` - single shared image bucket.
   - `Journal/YYYY/MM/` - daily entries.
+  - `Weekly Reports/YYYY/MM/<slug>/` - The Week in Ink, the Friday weekly recap. One folder per edition.
 - `Deliverables/` - where the team puts work-in-progress and finished artifacts (research briefs, hire workups, multi-file projects). Each Deliverable is time-stamped (`YYYY-MM-DD-<slug>` file or folder). Pax drops research here. Nolan drops hire workups here. Larry collects multi-specialist work here. See `Deliverables/README.md`.
 - `Team Inbox/` - where the user drops raw inputs (screenshots, voice memos, business cards, links, braindumps) for Larry to route. Penn usually picks them up and files into PKM. See `Team Inbox/README.md`.
 
@@ -119,7 +121,7 @@ No SQLite. No DB. Session logs are markdown. Cross-session learnings are appende
 
 ### 7. Team Knowledge taxonomy
 
-- **SOPs** - atomic procedures. One job, one file. Filename: `SOP-NNN-<title>.md`.
+- **SOPs** - atomic procedures. One job, one file. Filename: `SOP-NNN-<title>.md`. Framework-lifecycle SOPs (the task and journal plumbing) are un-numbered by design (`SOP-<verb>-<noun>.md`); numbered slots are reserved for domain SOPs.
 - **Workstreams** - recurring multi-agent orchestrations. Filename: `WS-NNN-<title>.md`. They reference SOPs and Guidelines, never duplicate them.
 - **Guidelines** - static reference info. Filename: `GL-NNN-<title>.md`. SOPs and Workstreams `[[wikilink]]` to them.
 
@@ -148,7 +150,7 @@ Triggers are case-insensitive. Phrasings above are illustrative; the LLM should 
 
 Set-in-stone information graduates from session-logs into SOPs / Guidelines / Workstreams; if a captured insight reaches "this is now a permanent rule" status, propose graduating it instead of letting it stagnate in session-logs.
 
-This section is the authoritative, canonical, LLM-agnostic spec — the natural-language trigger phrases above are the universal path that every host honors. The `/close-session` slash command is **not** required and is **not** shipped in the scaffold: it is a Claude-Code-only convenience that the adapter generates at setup time (see ADAPTER-PROMPT §7-bis) into `.claude/commands/close-session.md`, derived from this protocol. Hosts without slash commands (ChatGPT, Cursor, Cline, Gemini CLI, Codex, and any other LLM that reads `AGENTS.md`) skip the slash command entirely and honor the exact same contract via the trigger phrases above.
+This section is the authoritative, canonical, LLM-agnostic spec — the natural-language trigger phrases above are the universal path that every host honors. The `/close-session` slash command is **not** required and is **not** shipped in the scaffold: it is a Claude-Code-only convenience that the adapter generates at setup time (see ADAPTER-PROMPT §8-bis) into `.claude/commands/close-session.md`, derived from this protocol. Hosts without slash commands (ChatGPT, Cursor, Cline, Gemini CLI, Codex, and any other LLM that reads `AGENTS.md`) skip the slash command entirely and honor the exact same contract via the trigger phrases above.
 
 ## External Knowledge Import Triggers (LLM-agnostic)
 

@@ -3,7 +3,7 @@
 > **THIS IS A SPEC, NOT A WORKING UPDATER.** It documents how the Cockpit's own
 > code-update path should behave. The actual working updater, the versioned DB
 > migrations, and the refuse-to-start guard must be **built and security-reviewed
-> by Mack, Felix, Silas, and Vex before this ships.** Nothing here runs yet. Do
+> by the integration, frontend, database, and security lanes before this ships.** Nothing here runs yet. Do
 > not point a member at this as if it were executable.
 
 ## Why the Cockpit updates separately from the scaffold
@@ -42,7 +42,7 @@ updater. It does not run it.
 
 2. **Fetch the new cockpit source.**
    - Either a git-pull of a managed subtree/checkout, or apply a released source
-     bundle for the target version. (Engineering choice for Mack/Felix; the
+     bundle for the target version. (Engineering choice for the build lanes; the
      Hermes-Agent pattern of a managed checkout that pulls in place is a
      reasonable model, kept separate from user-state.)
    - The fetch replaces **code only**. It must never write
@@ -57,7 +57,7 @@ updater. It does not run it.
      `schema_migrations` table so re-running is safe.
    - **Back up `mypka-cockpit.db` before migrating.** Never an in-place
      destructive schema change without a backup the member can fall back to.
-   - Migrations must be authored and reviewed by Silas.
+   - Migrations must be authored and reviewed by the database lane.
 
 5. **Rebuild the UI bundle.**
    - `npm run build` to regenerate `web/dist` (which is intentionally not shipped;
@@ -92,13 +92,13 @@ code's required minimum at boot.
 - **Fail-closed.** On any ambiguity (dirty tree, failed migration, version
   mismatch), stop and surface the situation rather than guessing.
 
-## Before this ships (build checklist for Mack / Felix / Silas / Vex)
+## Before this ships (build checklist: integration / frontend / database / security)
 
-- [ ] Mack/Felix: implement the working updater script (fetch, `npm ci`, build,
-      restart prompt) with the back-up-before-overwrite behavior.
-- [ ] Silas: author the versioned, idempotent `mypka-cockpit.db` migrations and
+- [ ] Integration/frontend: implement the working updater script (fetch, `npm ci`,
+      build, restart prompt) with the back-up-before-overwrite behavior.
+- [ ] Database: author the versioned, idempotent `mypka-cockpit.db` migrations and
       the `schema_migrations` bookkeeping.
-- [ ] Felix: implement the refuse-to-start guard in `server/server.js`.
-- [ ] Vex: security review of the fetch path (source authenticity, no arbitrary
+- [ ] Frontend: implement the refuse-to-start guard in `server/server.js`.
+- [ ] Security: review the fetch path (source authenticity, no arbitrary
       code execution from an untrusted bundle), the migration runner, and the
       restart flow. **Blocking before public release.**

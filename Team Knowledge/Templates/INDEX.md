@@ -12,7 +12,7 @@ Example, from your myPKA root:
 cp "Team Knowledge/Templates/person.md" "PKM/CRM/People/jane-doe.md"
 ```
 
-Then open the new file and edit. The Properties tab in mypka-interface will populate as soon as you save the file with frontmatter that has values.
+Then open the new file and edit. The Properties tab in the myPKA Cockpit will populate as soon as you save the file with frontmatter that has values.
 
 ## Templates
 

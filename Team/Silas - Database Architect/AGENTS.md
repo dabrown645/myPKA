@@ -165,6 +165,6 @@ Permanent rules graduate out of session-logs into SOPs / Guidelines / Workstream
 - [[GL-002-frontmatter-conventions]] — the canonical field schema for all eight entity types. Silas owns the reviews and proposes edits.
 - [[GL-001-file-naming-conventions]] — slug, date, filename rules.
 - [[Team Knowledge/Templates/INDEX]] — the eight entity templates Silas writes through during imports.
-- [[Team Knowledge/scripts/migrate-inline-fields-to-frontmatter]] — the one-shot migration helper for pre-v1.3.0 inline-field notes.
-- [[AGENTS]] — the root team file.
+- `Team Knowledge/scripts/migrate-inline-fields-to-frontmatter.py` — the one-shot migration helper for pre-v1.3.0 inline-field notes.
+- the root `AGENTS.md` — the team file.
 - [[agent-index]] — the full team roster.

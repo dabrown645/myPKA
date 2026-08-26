@@ -268,7 +268,7 @@
 .ow-detail-out:hover { border-color: var(--border-emphasis); background: var(--surface-2); }
 .ow-detail-out:focus-visible { outline: 2px solid var(--accent-marker); outline-offset: 2px; }
 
-/* tom_context as the highlighted annotation atop the body. */
+/* user_context as the highlighted annotation atop the body. */
 .ow-detail-context {
   margin: 0 0 18px;
   padding: 14px 16px;

@@ -2,6 +2,30 @@
 
 All notable changes to the myPKA scaffold are tracked here. Versions follow semver: MAJOR for breaking structural changes, MINOR for additions, PATCH for fixes.
 
+## [5.5.2] - 2026-08-26
+
+**Housekeeping release: fixes in preparation for the next major version.** Everything here makes what already shipped correct, findable, and checkable. If you run the Cockpit, rebuild the web bundle and re-run the regen after updating (one field was renamed; your existing notes keep working).
+
+### Changed
+
+- **`tom_context` is renamed to `user_context`** across the Cockpit's Outer World annotation schema: note frontmatter, the mirror column, the regen, the server payload, the web client, the template, and the example notes. The old key keeps working: the regen reads `tom_context` as a deprecated alias of `user_context` (read old, write new), so existing notes need no edits, and the news migration script renames the key when it carries a note over. New notes should use `user_context`. Details in the Cockpit changelog (1.6.0) and `sqlite-extension/DATA-CONTRACT.md` section 14.
+
+### Fixed
+
+- **The eight seeded PKM samples now carry the YAML frontmatter they claim to demonstrate.** They shipped in the retired inline-field format while presenting themselves as the canonical shape, so copying a sample produced a non-compliant note and the Cockpit Properties tab rendered empty. Every sample is regenerated from its template in `Team Knowledge/Templates/`; the narrative content is unchanged.
+- **Three shipped subsystems are reachable from the navigation hubs again.** The task lifecycle (`Team Knowledge/tasks/` and its SOPs), Weekly Reports, and the Templates plus scripts layer were absent from `Team Knowledge/INDEX.md`, `PKM/INDEX.md`, and the root folder map. The missing SOP rows and script sections are wired in.
+- **Broken wikilinks repaired and stale strings corrected.** The genuinely dead links (10 of 687) and the ambiguous bare AGENTS links now resolve with path-suffix targets; a dead anchor, a retired product name, and an outdated Cockpit version row are corrected.
+- **Engineering comments no longer reference internal process residue.** A comment sweep replaces internal names and private-vault paths with role wording and shipped-path references, the same policy the 5.5.1 privacy fix applied to authorship.
+
+### Added
+
+- **`validation-script.sh` learns `--links`, `--indexes`, and `--all`.** The baseline structural check is unchanged; the new opt-in groups verify wikilink resolution over every markdown file and INDEX coverage (SOPs, Workstreams, Guidelines, Templates), so the two defect classes fixed above cannot recur silently. Run `bash validation-script.sh --all .` from the folder root.
+
+### Security
+
+- **The repository's git history was re-initialized to a clean root.** A privacy hardening pass removed all pre-5.5.1 history from the public repository; published release artifacts are unchanged, and v5.5.1 remains byte-identical to its released ZIP. If you cloned before 2026-08, re-clone or hard-reset your clone; the full maintenance notice lives in README.md.
+- **A required privacy gate now guards the repository.** Every push and pull request runs `scripts/check-no-personal-data.py --require-config` over the full checkout as a required status check on `main`, so the class of leak fixed in 5.5.1 cannot land again unnoticed.
+
 ## [5.5.1] - 2026-08-08
 
 > **5.5.0 was published for a few minutes and withdrawn.** Its copy of the new privacy guard hardcoded the maintainer names it was checking for, which put those names into the very folder the guard exists to keep them out of. The names now live in a repo-local config that is not shipped. 5.5.1 is 5.5.0 plus that correction; everything below applies to both.
@@ -244,7 +268,7 @@ Cockpit branding and a header layout fix. No structural changes.
 
 ## [5.1.0] - 2026-07-23
 
-**Install-friction release.** Closes the five scaffold-side findings from the end-to-end member install simulation of v5.0.1 (deliverable 14, 2026-07-23). Conducted as part of Marshall's release train; the bundled Cockpit updates to 1.4.0 on the same train (see the Cockpit's own CHANGELOG).
+**Install-friction release.** Closes the five scaffold-side findings from the end-to-end member install simulation of v5.0.1 (deliverable 14, 2026-07-23). Conducted as part of the release train; the bundled Cockpit updates to 1.4.0 on the same train (see the Cockpit's own CHANGELOG).
 
 ### Added
 
@@ -761,6 +785,6 @@ The contract: **two layers, never three.** The wiki contract at `Team/<Name>/AGE
 - **Expansions architecture.** Day-1 packs (App Developer Pack, Slack Expansion) ship via the AI Library at [myicor.com](https://myicor.com). [[WS-003-install-an-expansion]] codifies the multi-agent install flow.
 - **Frontmatter discipline.** `GL-002` defines field schemas for all eight entity types (Person, Organization, Project, Goal, Habit, Topic, Key Element, Document); `Team Knowledge/Templates/` ships the matching starters.
 - **SQLite upgrade path.** [[SOP-002-convert-mypka-to-sqlite]] generates a derived SQLite mirror when the markdown layer outgrows plain files. Markdown stays canonical.
-- **Design system primitive.** `GL-003` ships as an empty template; Iris populates it with the user via [[SOP-009-author-a-design-system]] on first creative request, then Charta/Pixel read from it for consistent style.
+- **Design system primitive.** `GL-003` ships as an empty template; Iris populates it with the user via `SOP-009-author-a-design-system` on first creative request, then Charta/Pixel read from it for consistent style.
 
 The `mypka-scaffold-latest.zip` URL pattern is non-negotiable — the myicor.com AI Library download button keeps serving `latest` with zero config changes across releases.

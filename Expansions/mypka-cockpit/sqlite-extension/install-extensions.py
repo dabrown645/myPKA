@@ -314,7 +314,7 @@ LIBRARY_REGISTRY_SEED = [
 
 # Full `outer_world` table for the Outer World module (PKM/Outer World/, md-first,
 # doc_type: outer-world). Created EMPTY under --with-outer-world / --all; the regen
-# fills it from markdown. The FLAT embed_* columns are the Axon/Mack fetcher contract
+# fills it from markdown. The FLAT embed_* columns are the embed-fetcher contract
 # (embed_image / embed_favicon are LOCAL relative paths). The linked_* are JSON-array
 # TEXT of slugs projected for grid filtering. See schema/08-module-outer-world.sql +
 # DATA-CONTRACT.md §14.
@@ -326,7 +326,7 @@ CREATE TABLE outer_world (
   embed_kind TEXT, embed_title TEXT, embed_description TEXT, embed_image TEXT,
   embed_site_name TEXT, embed_domain TEXT, embed_favicon TEXT, embed_author TEXT,
   embed_captured_at TEXT,
-  tom_context TEXT, tags TEXT,
+  user_context TEXT, tags TEXT,
   linked_topics TEXT, linked_key_elements TEXT, linked_projects TEXT,
   linked_people TEXT, linked_organizations TEXT,
   body TEXT, file_path TEXT, raw_frontmatter TEXT)

@@ -23,12 +23,12 @@
 --         2. the machine-fetched EMBED card (the flat embed_* OpenGraph fields,
 --            the mymind rich-card layer — localized image, favicon, site name);
 --         3. the Inner-World ANNOTATION layer the user lays ON TOP of the source
---            (tom_context + the four linked_* bucket lanes + tags).
+--            (user_context + the four linked_* bucket lanes + tags).
 --       Those layers earn a dedicated, documented table. It still obeys the same
 --       doctrine as every other table: md-first, one note per item, typed columns
 --       the cockpit reads directly, derived + rebuilt on every regen.
 --
--- THE FLAT embed_* CONTRACT (coordinated with Axon's embed spec + Mack's fetcher).
+-- THE FLAT embed_* CONTRACT (coordinated with the embed spec + Mack's fetcher).
 --   The embed metadata is stored as FLAT, top-level frontmatter keys — NOT a
 --   nested `embed:` block. Flat keeps the note Obsidian-safe (Properties UI shows
 --   each as its own field) and gives each its own sortable/filterable SQLite
@@ -39,7 +39,7 @@
 --
 -- THE SOURCE STAYS OUTER WORLD; ANNOTATIONS LAYER ON TOP — encoded structurally:
 --   source_* + embed_* are the immutable source record (the fetcher / capture
---   writes them; the user does not author them). tom_context + the linked_* fan-out
+--   writes them; the user does not author them). user_context + the linked_* fan-out
 --   + tags are the Inner-World layer the user adds. Both live in one note; the
 --   table keeps them in distinct columns so a query can read either layer alone.
 --
@@ -73,7 +73,7 @@
 --                       (free-string-with-recommended-vocab, like recipe `cuisine`)
 --   source_author     byline / poster / handle / speaker (NULL ok)            [display]
 --   source_published  TEXT ISO — when the SOURCE was published (vs captured_on)  [display]
---   ── EMBED card (the mymind rich-card layer; FLAT embed_* — Axon/Mack contract) ──
+--   ── EMBED card (the mymind rich-card layer; FLAT embed_* — the embed-fetcher contract) ──
 --   embed_kind        the embed/card kind: link | article | video | image | rich …  [facet]
 --   embed_title       OpenGraph/card title (may differ from `title`)          [display]
 --   embed_description OpenGraph/card description / snippet                     [display]
@@ -85,7 +85,9 @@
 --   embed_author      author as the EMBED reported it (vs the user-curated source_author)
 --   embed_captured_at TEXT ISO datetime — when the embed metadata was fetched  [staleness]
 --   ── Inner-World ANNOTATION layer (laid ON TOP of the source) ──
---   tom_context       the user's short annotation — why they kept it / what it connects to
+--   user_context      the user's short annotation — why they kept it / what it connects to
+--                     (formerly tom_context; the regen still reads the old frontmatter
+--                     key as a deprecated alias, but only ever writes user_context)
 --   tags              JSON-array TEXT of verbatim tag strings (NULL when none) [facet]
 --   ── Capturing-Beast bucket lanes (JSON-array TEXT of slugs; projected for filtering) ──
 --   linked_topics         Topic slugs      → PKM/My Life/Topics/*         [filter]
@@ -116,7 +118,7 @@ CREATE TABLE IF NOT EXISTS outer_world (
   embed_favicon TEXT,
   embed_author TEXT,
   embed_captured_at TEXT,
-  tom_context TEXT,
+  user_context TEXT,
   tags TEXT,
   linked_topics TEXT,
   linked_key_elements TEXT,

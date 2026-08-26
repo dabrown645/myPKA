@@ -171,5 +171,5 @@ On uninstall, Mack runs symmetric teardown: stop the runtime (`launchctl unload`
 - [[GL-002-frontmatter-conventions]] — entity frontmatter schema. Silas owns audits.
 - [[Team Knowledge/Templates/INDEX]] — the eight entity templates Silas writes through during imports.
 - `Expansions/docs/expansion-spec.md` — locked Expansion manifest schema (v1.7.0).
-- [[AGENTS]] — the root team file.
+- the root `AGENTS.md` — the team file.
 - [[agent-index]] — the full team roster.

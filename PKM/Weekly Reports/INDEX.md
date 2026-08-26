@@ -1,10 +1,10 @@
 # Weekly Reports - Archive
 
-The permanent home for **The Week in Ink**, your Friday weekly recap. `Deliverables/` is a working surface that gets swept at close; weekly reports are the durable record of what a week actually contained, so every edition is filed here where it is never lost. Date-nested time-series shape (`YYYY/MM/<slug>/`), same as [[PKM/Journal]] and [[PKM/Images]]. Each edition folder holds `metadata.md` (the markdown SSOT + frontmatter per [[GL-002-frontmatter-conventions]]) plus the rendered deck. The `_template/` folder carries the reusable frontmatter schema; the deck stylesheet, engine and fonts live in `Team Knowledge/scripts/weekly-report-assets/` (a framework path, so they receive updates).
+The permanent home for **The Week in Ink**, your Friday weekly recap. `Deliverables/` is a working surface that gets swept at close; weekly reports are the durable record of what a week actually contained, so every edition is filed here where it is never lost. Date-nested time-series shape (`YYYY/MM/<slug>/`), same as [[PKM/Journal/INDEX|Journal]] and [[PKM/Images/INDEX|Images]]. Each edition folder holds `metadata.md` (the markdown SSOT + frontmatter per [[GL-002-frontmatter-conventions]]) plus the rendered deck. The `_template/` folder carries the reusable frontmatter schema at [[PKM/Weekly Reports/_template/metadata|_template/metadata.md]]; the deck stylesheet, engine and fonts live in `Team Knowledge/scripts/weekly-report-assets/` (a framework path, so they receive updates).
 
 ## What an edition is
 
-An edition answers "what actually happened this week and what did it mean". It is **assembled, never invented**: every line traces to something already captured, a [[PKM/Journal]] entry, a [[PKM/Images]] capture, a `Deliverables/` folder or a session log. That gather is the whole point of the format. The recap is not written from memory, it is built from what you already wrote down.
+An edition answers "what actually happened this week and what did it mean". It is **assembled, never invented**: every line traces to something already captured, a [[PKM/Journal/INDEX|Journal]] entry, a [[PKM/Images/INDEX|Images]] capture, a `Deliverables/` folder or a session log. That gather is the whole point of the format. The recap is not written from memory, it is built from what you already wrote down.
 
 If a week has no journal entries and no images, the edition says so and renders a work-only record rather than padding seven pages with inference. A thin honest edition beats a fabricated recap of your own life.
 

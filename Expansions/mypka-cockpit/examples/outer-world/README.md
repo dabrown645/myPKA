@@ -48,7 +48,7 @@ embed_favicon: _assets/favicon-video.png
 embed_author: Build & Learn
 embed_captured_at: 2026-06-14T11:40:00Z
 # ── Inner-World ANNOTATION layer (your take, ON TOP of the source) ──
-tom_context: why I kept it / what it connects to
+user_context: why I kept it / what it connects to
 tags: [opengraph, embeds, video]
 # ── Capturing-Beast bucket lanes (slugs; projected for grid filtering) ──
 linked_topics: [rich-embeds]
@@ -68,7 +68,7 @@ linked_organizations: []
    these keys; you don't author them. `embed_image` / `embed_favicon` are **local
    relative paths** — the image is localized at capture, so the card renders offline
    and there is no third-party image / CSP exposure at render.
-3. **ANNOTATION** (`tom_context` + `tags` + the five `linked_*` lanes) — the
+3. **ANNOTATION** (`user_context` + `tags` + the five `linked_*` lanes) — the
    Inner-World layer you lay on top. The source stays Outer World; your take layers
    on.
 

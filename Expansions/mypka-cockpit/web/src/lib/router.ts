@@ -63,7 +63,7 @@ export type Route =
   | { name: 'library'; lib?: string; item?: string }
   // Outer World module (DATA-CONTRACT §14). #/outer-world = the mymind-style card
   // grid; #/outer-world/:slug = one saved item opened in the large detail view
-  // (the embed header + tom_context body + linked entities). Deep-linkable; the
+  // (the embed header + user_context body + linked entities). Deep-linkable; the
   // Outer World nav row (moduleRegistry) targets the bare #/outer-world.
   | { name: 'outer-world'; slug?: string }
   // A raw file rendered as a routed in-app reading page (FileView). See the

@@ -34,7 +34,7 @@ Team Knowledge/session-logs/<YYYY>/<MM>/YYYY-MM-DD-HH-MM_<agent>_<short-title-sl
 ```
 
 - `YYYY-MM-DD-HH-MM` is the session END timestamp (UTC), not start.
-- `<agent>` is lowercase agent name: `larry`, `knox`, `mack`.
+- `<agent>` is lowercase agent name: `larry`, `mack`, `silas`.
 - `<short-title-slug>` is kebab-case, ~30–60 chars, captures the session's headline.
 
 Example: `2026-05-09-17-30_knox_v0.4.2-tauri-linux-deb-pivot.md`
@@ -59,7 +59,7 @@ linked_journal_entries: []
 
 Field notes:
 
-- `session_id` is human-readable and stable across mid-session checkpoints. E.g. `2026-05-09-knox-takeover-v0.4.0` covers v0.4.0 → v0.4.1 → v0.4.2 → v0.4.3 even though they ship as separate session logs. Use the same `session_id` for related logs.
+- `session_id` is human-readable and stable across mid-session checkpoints. E.g. `2026-05-09-desktop-dev-takeover-v0.4.0` covers v0.4.0 → v0.4.1 → v0.4.2 → v0.4.3 even though they ship as separate session logs. Use the same `session_id` for related logs.
 - `type` defaults to `end-of-session`. Other values: `mid-session-checkpoint`, `stand-down`.
 - `linked_tasks` lists tasks this session created, claimed, blocked, unblocked, or closed. Mirror of the `linked_session_logs` array those tasks carry.
 - `linked_journal_entries` lists journal entries birthed in this session.
@@ -93,7 +93,7 @@ The legacy v1.x session-logs only have `linked_sops`, `linked_workstreams`, `lin
 {Tone, gotchas, "if you see X, don't do Y." Personal-voice gold.}
 ```
 
-The Knox v0.4.2 entry (`Team Knowledge/session-logs/2026/05/2026-05-09-17-30_knox_v0.4.2-tauri-linux-deb-pivot.md`) is the canonical example of this shape done well.
+The v0.4.2 Tauri-pivot entry (`Team Knowledge/session-logs/2026/05/2026-05-09-17-30_desktop-dev_v0.4.2-tauri-linux-deb-pivot.md`, the worked example in [[SOP-write-journal-entry]]) is the canonical example of this shape done well.
 
 ## Cross-references (the two-way wiring)
 

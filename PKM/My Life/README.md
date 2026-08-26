@@ -36,7 +36,7 @@ Before filing anything in My Life, ask: **does this belong in My Life at all?** 
 
 ## Files
 
-See [[INDEX]] for the full file listing in this section.
+See [[PKM/My Life/INDEX|INDEX]] for the full file listing in this section.
 
 Each folder ships one seeded sample — the worked example the myICOR myPKA course walks through:
 

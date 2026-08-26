@@ -16,7 +16,7 @@ embed_domain: video.example
 embed_favicon: _assets/favicon-video.png
 embed_author: Build & Learn
 embed_captured_at: 2026-06-14T11:40:00Z
-tom_context: Reference for the embed-fetch spec — the OG-card mechanics the cockpit cards reuse.
+user_context: Reference for the embed-fetch spec — the OG-card mechanics the cockpit cards reuse.
 tags:
   - opengraph
   - embeds

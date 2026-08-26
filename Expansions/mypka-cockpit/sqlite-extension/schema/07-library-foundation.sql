@@ -51,7 +51,7 @@
 
 -- ── recipes ────────────────────────────────────────────────────────────────
 -- PKM/My Life/Recipes/  (doc_type: recipe). Axes chosen from the established
--- recipe-collection convention (GL-002 Recipes vocab; mirrors Mei's recipe notes):
+-- recipe-collection convention (GL-002 Recipes vocab; mirrors the recipe notes):
 --   cuisine          single-value axis (korean / japanese / italian / …)  [facet]
 --   dish_type        single-value axis (suppe / hauptgericht / dessert / …) [facet]
 --   difficulty       single-value axis (anfaenger / mittel / fortgeschritten) [facet]

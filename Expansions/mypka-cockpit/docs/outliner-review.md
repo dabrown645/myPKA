@@ -1,6 +1,6 @@
 # Workbench Outliner — Best-Practice Review
 
-**Date:** 2026-06-11 · **Reviewer:** Felix (Frontend) · **Benchmark set:** Workflowy, Logseq, Tana, Obsidian outline plugins
+**Date:** 2026-06-11 · **Reviewer:** Frontend specialist · **Benchmark set:** Workflowy, Logseq, Tana, Obsidian outline plugins
 **Scope:** `web/src/lib/outlinerSchema.ts`, `outlinerEdit.ts`, `outlinerCollapse.ts`, `outlinerZoom.ts`, `outlinerReorder.ts`, `outlinerAria.ts`, `workbenchMarkdown.ts`, `components/workbench/OutlinerEditor.tsx`, the outliner sections of `cockpit.css`.
 
 ---
@@ -30,7 +30,7 @@
 | 1 | **Zoom breadcrumb label is empty for heading bullets.** `outlinerZoom.ts ownText()` reads only `paragraph` children. | Workflowy crumbs always show the row text. | Change the check to `child.isTextblock` (or `paragraph \|\| heading`). One line, but `outlinerZoom.ts` was outside this pass's file territory. | **S** (next pass) |
 | 2 | **Copy does not produce markdown.** Copying a multi-bullet selection yields ProseMirror's HTML/plain rendering, not `- ` markdown — paste-in now understands markdown but copy-out doesn't speak it. | Logseq/Obsidian copy markdown. | Add `clipboardTextSerializer` (and optionally `clipboardSerializer`) that walks the selected listItems through `outlineToMarkdown`. | **M** |
 | 3 | **Full-doc markdown serialization runs on every keystroke.** `onUpdate → editorMarkdown(ed)` is O(doc) per keypress; the save is debounced upstream but the serialize isn't. Fine at hundreds of bullets, measurable at thousands. | Workflowy virtualizes; Logseq serializes per-block. | Move serialization inside the debounce (pass the editor, serialize at save time), or serialize per-changed-subtree. | **M** |
-| 4 | **Mobile/touch.** Drag handle is hover-positioned (no touch affordance), no long-press reorder, Alt/Mod shortcuts need a hardware keyboard, no VisualViewport/IME handling. Fold tap target is OK (≥24px gutter). | Workflowy mobile has tap-to-fold + drag affordances. | Touch pass with Knox: persistent grab affordance on coarse pointers, long-press drag, on-screen indent/outdent controls. | **M–L** |
+| 4 | **Mobile/touch.** Drag handle is hover-positioned (no touch affordance), no long-press reorder, Alt/Mod shortcuts need a hardware keyboard, no VisualViewport/IME handling. Fold tap target is OK (≥24px gutter). | Workflowy mobile has tap-to-fold + drag affordances. | Touch pass with the mobile specialist: persistent grab affordance on coarse pointers, long-press drag, on-screen indent/outdent controls. | **M–L** |
 | 5 | **Heading discoverability + level cycling.** `# ` typing is the only way in; no `Mod-Alt-1/2/3` toggles, no UI affordance, no way to change a heading's level except retype. | Logseq: `Mod-1..3` toggles; Obsidian: command palette. | Add `addKeyboardShortcuts` on the heading node (`Mod-Alt-1/2/3` toggle, repeat-press to clear) + document in the sr-only legend / `aria-keyshortcuts`. | **S–M** |
 | 6 | Undo of fold state: collapse toggles are transactions, so Cmd-Z replays them interleaved with edits. Workflowy treats folds as non-undoable view state. | Add `appendedTransaction`/history filtering for `outlinerCollapse`-meta trs. | **M** |
 | 7 | Multi-row structural selection: selecting across rows gives a flat text selection; Tab/reorder act on the caret row only. Workflowy/Tana select whole rows and operate on the set. | Row-selection model (NodeSelection set or decoration-based) + batch indent/move. | **L** |
@@ -43,7 +43,7 @@
 1. Heading-aware zoom breadcrumb label (`outlinerZoom.ts`, one line) — S.
 2. Copy-as-markdown (`clipboardTextSerializer`) — M.
 3. Serialize-at-debounce for large docs — M.
-4. Touch/mobile affordance pass with Knox — M–L.
+4. Touch/mobile affordance pass with the mobile specialist — M–L.
 5. Heading level shortcuts (`Mod-Alt-1/2/3`) + discoverability — S–M.
 
 ## 4. Round-trip verification (no web test harness exists)

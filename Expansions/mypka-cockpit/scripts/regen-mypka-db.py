@@ -334,9 +334,9 @@ CREATE TABLE quotes (
 -- The mymind-style store of SAVED external content (doc_type: outer-world, folder
 -- PKM/Outer World/YYYY/MM/). The old "news" entity is generalized into this: news
 -- is now one source_type. Three layers in one table: the immutable SOURCE record
--- (source_*), the machine-fetched EMBED card (FLAT embed_*, Axon/Mack contract;
+-- (source_*), the machine-fetched EMBED card (FLAT embed_*, the embed-fetcher contract;
 -- embed_image/embed_favicon are LOCAL relative paths localized at capture), and the
--- Inner-World ANNOTATION layer (tom_context + the linked_* bucket lanes + tags). The
+-- Inner-World ANNOTATION layer (user_context + the linked_* bucket lanes + tags). The
 -- linked_* are JSON-array TEXT of slugs projected as columns so the grid filters by
 -- Topic/KE/Project/Person/Org without a links join. See DATA-CONTRACT §14.
 CREATE TABLE outer_world (
@@ -346,7 +346,7 @@ CREATE TABLE outer_world (
   embed_kind TEXT, embed_title TEXT, embed_description TEXT, embed_image TEXT,
   embed_site_name TEXT, embed_domain TEXT, embed_favicon TEXT, embed_author TEXT,
   embed_captured_at TEXT,
-  tom_context TEXT, tags TEXT,
+  user_context TEXT, tags TEXT,
   linked_topics TEXT, linked_key_elements TEXT, linked_projects TEXT,
   linked_people TEXT, linked_organizations TEXT,
   body TEXT, file_path TEXT, raw_frontmatter TEXT);
@@ -1128,12 +1128,12 @@ def main():
     # The mymind-style store of SAVED external content. Recursive + dated (like the
     # journal): saves are time-series capture events. THREE layers per note:
     #   1. SOURCE (source_url/source_type/source_author/source_published) — immutable.
-    #   2. EMBED card — the FLAT embed_* OpenGraph fields (Axon/Mack contract). Read
+    #   2. EMBED card — the FLAT embed_* OpenGraph fields (the embed-fetcher contract). Read
     #      1:1 from flat frontmatter keys (NOT a nested block). embed_image/_favicon
     #      are LOCAL relative paths (localized at capture; the regen stores them
     #      verbatim via fm_raw_str so a leading path/`#`/spaces survive byte-for-byte).
-    #   3. ANNOTATION (tom_context + tags + the five linked_* bucket lanes) — the
-    #      Inner-World layer. tom_context is read verbatim (may be a block scalar with
+    #   3. ANNOTATION (user_context + tags + the five linked_* bucket lanes) — the
+    #      Inner-World layer. user_context is read verbatim (may be a block scalar with
     #      line breaks). The linked_* are slug arrays projected into columns so the
     #      cockpit grid filters by Topic/KE/Project/Person/Org via json_each() with no
     #      links join. Body wikilinks ALSO become normal graph edges. Only notes whose
@@ -1158,7 +1158,7 @@ def main():
             " source_url, source_type, source_author, source_published,"
             " embed_kind, embed_title, embed_description, embed_image,"
             " embed_site_name, embed_domain, embed_favicon, embed_author,"
-            " embed_captured_at, tom_context, tags,"
+            " embed_captured_at, user_context, tags,"
             " linked_topics, linked_key_elements, linked_projects,"
             " linked_people, linked_organizations,"
             " body, file_path, raw_frontmatter)"
@@ -1170,7 +1170,11 @@ def main():
              fm_raw_str(fm, "embed_description"), fm_raw_str(fm, "embed_image"),
              fm_raw_str(fm, "embed_site_name"), fm_str(fm, "embed_domain"),
              fm_raw_str(fm, "embed_favicon"), fm_raw_str(fm, "embed_author"),
-             fm_str(fm, "embed_captured_at"), fm_raw_str(fm, "tom_context"),
+             fm_str(fm, "embed_captured_at"),
+             # user_context, accepting tom_context as a DEPRECATED alias (read old,
+             # write new; both getters return None for absent/blank, so `or` is exact).
+             # See DATA-CONTRACT.md section 14 deprecation note.
+             fm_raw_str(fm, "user_context") or fm_raw_str(fm, "tom_context"),
              fm_list_json_raw(fm, "tags"),
              fm_list_json(fm, "linked_topics"),
              fm_list_json(fm, "linked_key_elements"),

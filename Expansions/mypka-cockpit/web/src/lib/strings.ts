@@ -96,7 +96,7 @@ export const S = {
     emptyLibrary: 'Your cookbook',
     emptyTitle: 'No recipes yet',
     emptySub:
-      'Mei fills the library once your ingredients are settled. Until then there’s calm space here for the first dish.',
+      'The library fills once your first recipes are captured. Until then there’s calm space here for the first dish.',
     searchPlaceholder: 'Search by title, ingredient, tag…',
     searchAria: 'Search recipes',
     noResults: 'No recipes match these filters.',
