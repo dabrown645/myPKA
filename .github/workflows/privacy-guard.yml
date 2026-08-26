@@ -1,0 +1,12 @@
+name: privacy-guard
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Personal-data guard (full checkout, config required)
+        run: python3 scripts/check-no-personal-data.py --root . --require-config
