@@ -116,19 +116,37 @@ Rules (host-agnostic):
 
 Use any existing shim (`.claude/agents/silas.md`, `.claude/agents/penn.md`, etc.) as the structural template for the body — adapt the frontmatter to the host's spec.
 
-### 6. Add the row to agent-index (Nolan)
+### 6. Create journal template (Nolan)
+
+Create `Team/<Name> - <Role>/journal/_template.md` by copying from any existing specialist:
+
+```bash
+cp "Team/Larry - Orchestrator/journal/_template.md" "Team/<Name> - <Role>/journal/_template.md"
+```
+
+The template is identical across all specialists (verified by md5sum).
+
+### 7. Add the row to agent-index (Nolan)
 
 Edit [[Team/agent-index]]. Add a row with the specialist's name, role, folder link, and the user input patterns that should route to them.
 
-### 7. Update relevant Workstreams (Nolan)
+### 8. Update Larry's routing cheatsheet (Nolan)
+
+Edit `Team/Larry - Orchestrator/AGENTS.md`. In the routing cheatsheet table, add a row with:
+- User input patterns that should route to the new specialist
+- The specialist's name
+
+Pull trigger patterns from the new specialist's `AGENTS.md` "When Larry routes to them" section.
+
+### 9. Update relevant Workstreams (Nolan)
 
 If the new specialist takes part in a recurring orchestration, edit the matching Workstream in `Team Knowledge/Workstreams/` to mention them via `[[wikilinks]]`. Do not duplicate the AGENTS.md content into the Workstream.
 
-### 8. Confirm with the user (Nolan -> Larry -> user)
+### 10. Confirm with the user (Nolan -> Larry -> user)
 
 Show the user the draft AGENTS.md, the draft `.claude/agents/<slug>.md` shim, and the updated agent-index, with a one-line summary of what Pax's research surfaced. Make changes only after they approve.
 
-### 9. Log the hire (Larry)
+### 11. Log the hire (Larry)
 
 Larry writes a line in the next session log: "Hired <Name> as <Role> after research from Pax. Brief at `[[<research-deliverable-slug>]]`. Contract at `[[Team/<Name> - <Role>/AGENTS]]`. Shim at `.claude/agents/<slug>.md`." This becomes part of the team's persistent memory.
 

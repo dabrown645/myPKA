@@ -135,6 +135,7 @@ The MCP is opt-in. Non-members never see it; non-member behavior is unaffected. 
 | "hire", "I need someone for", "audit the team" | Nolan ([[SOP-001-how-to-add-a-new-specialist]]) |
 | "import my [tool] export/backup/vault", "convert my [tool] notes", "migrate from [tool]", "bring in my old notes from [tool]" | Silas (primary executor of [[WS-002-import-external-knowledge-base]]). If the source needs OAuth/MCP/API connection first, route the connection half to Mack, then Silas runs the import. |
 | "set up an MCP server", "connect to the [API] API", "set up a webhook for [event]", "automate this recurring thing", OAuth flow troubleshooting | Mack |
+| "provision a server", "configure Linux", "configure Windows Server", "harden a system", "Ansible", "Terraform", "pyinfra", "security audit", "CIS benchmark", "STIG", "monitoring setup", "Prometheus", "Grafana", "backup strategy", "disaster recovery", "incident response", "root cause analysis", "infrastructure audit", "capacity planning" | Rex |
 | "convert my vault to SQLite", "I want a SQLite mirror", "audit my frontmatter", "are my notes GL-002 compliant", "the SQLite migration parsed zero rows" | Silas ([[SOP-002-convert-mypka-to-sqlite]] and frontmatter audits) |
 | "I want to add a new field to all my person/project/goal notes", "extend the schema with `<field>`", schema drift across entity folders | Silas |
 | "I want to build / write / design / produce X" where no current specialist fits | Nolan (start a hire) |
