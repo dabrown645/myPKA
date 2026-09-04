@@ -193,6 +193,22 @@
   systemd-cryptenroll /dev/nvmeXn1p5 --tpm2-device=auto --tpm2-pcrs=0+1+2+3+7
   ```
 - [ ] Repeat TPM2 enrollment for CachyOS root if not done during install
+- [ ] ⚠️ MISSED STEP (added 2026-09-04 — this is the step skipped on the original install): back up LUKS headers + enroll offline recovery keys — TPM auto-unlock is NOT a backup:
+  ```bash
+  # Backup headers to offline USB BEFORE adding keys
+  sudo cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file "$USB/luks-header-nvme0n1p2-$(date +%Y-%m-%d).bin"
+  sudo cryptsetup luksHeaderBackup /dev/nvme0n1p5 --header-backup-file "$USB/luks-header-nvme0n1p5-$(date +%Y-%m-%d).bin"
+
+  # Add a recovery passphrase to free slot 2 (leaves slot 0 passphrase + slot 1 TPM untouched)
+  # Do NOT use --wipe-slot here — that would break TPM auto-unlock
+  sudo cryptsetup luksAddKey /dev/nvme0n1p2 --key-slot 2
+  sudo cryptsetup luksAddKey /dev/nvme0n1p5 --key-slot 2
+
+  # Verify without unlocking
+  sudo cryptsetup luksOpen --test-passphrase --key-slot 2 /dev/nvme0n1p2
+  sudo cryptsetup luksOpen --test-passphrase --key-slot 2 /dev/nvme0n1p5
+  ```
+  Store the two recovery passphrases + header files offline on USB / paper. See [[luks-recovery-keys-and-header-backup]] for the full TPM-safe fix procedure.
 - [ ] Configure systemd mount units for Storage (not fstab)
 - [ ] Run pyinfra deploy from `~/Projects/mycachyos`
 - [ ] Configure chezmoi for user dotfiles
