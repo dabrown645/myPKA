@@ -11,6 +11,7 @@ Filename pattern: `<kebab-case-title>.md`. See [[GL-001-file-naming-conventions]
 | [[GPG-restore-for-active-use]] | GPG Restore for Active Use | Larry | Restore GPG from encrypted USB backup. Gets you from "secret keys on USB" to "GPG fully functional." |
 | [[GPG-backup-and-lockdown]] | GPG Backup and Lockdown | Larry | Backup GPG to encrypted USB and remove secret keys from local disk. |
 | [[GPG-key-renewal]] | GPG Key Renewal | Larry | Renew expired or expiring GPG keys. Extends validity without changing key material. |
+| [[luks-recovery-keys-and-header-backup]] | LUKS Recovery Keys and Header Backup | Rex | Add offline recovery passphrases + header backups to existing LUKS+TPM2 drives without breaking auto-unlock. |
 
 ## How to add a new Procedure
 
