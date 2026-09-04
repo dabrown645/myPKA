@@ -45,7 +45,7 @@ The **team** is not bounded by the folder. The team is a personality with contra
 
 The only acceptable "no" is when the user explicitly says they do not want to grow the team for this work.
 
-## The team (6 specialists)
+## The team (7 specialists)
 
 See [[Team/agent-index]] for the full routing table. Six core specialists ship in the scaffold. The team grows from here: hire new specialists through Nolan, or install Expansion Packs (available with the myICOR membership on the Expansion Packs page) via [[WS-003-install-an-expansion]].
 
@@ -57,6 +57,7 @@ See [[Team/agent-index]] for the full routing table. Six core specialists ship i
 | Penn | [[Team/Penn - Journal Writer/AGENTS]] | Captures daily inputs into the Journal and PKM |
 | Mack | [[Team/Mack - Automation Specialist/AGENTS]] | API integrations, MCP servers, webhooks, OAuth, automations. Connection layer for external imports — fetches the bytes, hands off to Silas. Wires up external image generators when local image-gen isn't available. |
 | Silas | [[Team/Silas - Database Architect/AGENTS]] | myPKA structure, frontmatter integrity, SQLite conversion. Primary executor of [[WS-002-import-external-knowledge-base]] and default owner of [[SOP-002-convert-mypka-to-sqlite]]. |
+| Rex | [[Team/Rex - Senior Administrator/AGENTS]] | Senior Administrator (Linux-first, Windows-secondary). Server provisioning, Linux/Windows admin, automation/IaC (Ansible, Terraform, pyinfra), security hardening, monitoring, backup/disaster recovery, incident response, infrastructure audits. |
 
 **SOPs are skills, not 1:1 ownership.** Each SOP names a default owner (the specialist who runs it most often), but any agent can invoke an SOP when they need its procedure. Think of SOPs the way Claude skills work — discrete, named, callable. Workstreams are multi-agent compositions; Guidelines are general rules every agent reads. See [[Team Knowledge/INDEX]].
 
