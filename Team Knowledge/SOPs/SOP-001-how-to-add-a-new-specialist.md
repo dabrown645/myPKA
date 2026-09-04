@@ -130,7 +130,13 @@ The template is identical across all specialists (verified by md5sum).
 
 Edit [[Team/agent-index]]. Add a row with the specialist's name, role, folder link, and the user input patterns that should route to them.
 
-### 8. Update Larry's routing cheatsheet (Nolan)
+### 8. Update root AGENTS.md team table (Nolan)
+
+Edit the root `AGENTS.md`. In the "The team (N specialists)" section:
+- Increment the specialist count
+- Add a row to the table with the specialist's name, folder link, and role
+
+### 9. Update Larry's routing cheatsheet (Nolan)
 
 Edit `Team/Larry - Orchestrator/AGENTS.md`. In the routing cheatsheet table, add a row with:
 - User input patterns that should route to the new specialist
@@ -138,15 +144,15 @@ Edit `Team/Larry - Orchestrator/AGENTS.md`. In the routing cheatsheet table, add
 
 Pull trigger patterns from the new specialist's `AGENTS.md` "When Larry routes to them" section.
 
-### 9. Update relevant Workstreams (Nolan)
+### 10. Update relevant Workstreams (Nolan)
 
 If the new specialist takes part in a recurring orchestration, edit the matching Workstream in `Team Knowledge/Workstreams/` to mention them via `[[wikilinks]]`. Do not duplicate the AGENTS.md content into the Workstream.
 
-### 10. Confirm with the user (Nolan -> Larry -> user)
+### 11. Confirm with the user (Nolan -> Larry -> user)
 
 Show the user the draft AGENTS.md, the draft `.claude/agents/<slug>.md` shim, and the updated agent-index, with a one-line summary of what Pax's research surfaced. Make changes only after they approve.
 
-### 11. Log the hire (Larry)
+### 12. Log the hire (Larry)
 
 Larry writes a line in the next session log: "Hired <Name> as <Role> after research from Pax. Brief at `[[<research-deliverable-slug>]]`. Contract at `[[Team/<Name> - <Role>/AGENTS]]`. Shim at `.claude/agents/<slug>.md`." This becomes part of the team's persistent memory.
 
