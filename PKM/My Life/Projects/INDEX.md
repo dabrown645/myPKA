@@ -13,6 +13,7 @@ Example: the Goal *"lose 20 kg"* can be carried by a Project (an 8-week program 
 ## Active files
 
 - [[side-project-mvp]] — seeded course sample. The canonical shape every Project file follows.
+- [[car-research-for-second-car]] — second car for EV household, CPO research, target 2027-03-08.
 
 ## Naming
 

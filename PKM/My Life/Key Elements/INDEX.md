@@ -17,6 +17,7 @@ Example: *French* starts as a Topic. When it sharpens into a measurable pursuit 
 ## Active files
 
 - [[health]] — seeded course sample. Read the "What this Key Element is not" section first.
+- [[auto]] — vehicles and transport needs, home for second-car research.
 
 ## Naming
 
