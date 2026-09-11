@@ -11,6 +11,7 @@ Routing table for the six core specialists shipped with the scaffold. Larry read
 | Mack | Automation Specialist | [[Team/Mack - Automation Specialist/AGENTS]] | API integrations, MCP servers, webhooks, OAuth flows, automation scripts. Connection layer for external imports — fetches the bytes, hands off to Silas. Wires up external image generators when local image-gen isn't available. |
 | Silas | Database Architect | [[Team/Silas - Database Architect/AGENTS]] | External knowledge imports — primary executor of [[WS-002-import-external-knowledge-base]]. Default owner of [[SOP-002-convert-mypka-to-sqlite]]. Frontmatter integrity audits, schema drift, GL-002 compliance. |
 | Rex | Senior Administrator | [[Team/Rex - Senior Administrator/AGENTS]] | Server provisioning, Linux/Windows admin, automation/IaC (Ansible, Terraform, pyinfra), security hardening, monitoring, backup/disaster recovery, incident response, infrastructure audits. |
+| Otto | Auto Procurement Specialist | [[Team/Otto - Auto Procurement Specialist/AGENTS]] | "buy a car", "negotiate car deal", "lease vs buy", "trade-in value", "review this car quote / F&I menu". Personal/family vehicle buying only. |
 
 ## Bootstrap rule
 
