@@ -137,6 +137,7 @@ The MCP is opt-in. Non-members never see it; non-member behavior is unaffected. 
 | "set up an MCP server", "connect to the [API] API", "set up a webhook for [event]", "automate this recurring thing", OAuth flow troubleshooting | Mack |
 | "provision a server", "configure Linux", "configure Windows Server", "harden a system", "Ansible", "Terraform", "pyinfra", "security audit", "CIS benchmark", "STIG", "monitoring setup", "Prometheus", "Grafana", "backup strategy", "disaster recovery", "incident response", "root cause analysis", "infrastructure audit", "capacity planning" | Rex |
 | "buy a car", "find me a [make/model]", "negotiate car deal", "lease vs buy", "trade-in value", "review this car quote / F&I menu" | Otto |
+| "fix local-ai script", "chroma fails", "ollama embedding error", "benchmark model", "tok/sec", "RAG recall", "Modelfile", "series #", "~/Projects/local-ai" | Dex |
 | "convert my vault to SQLite", "I want a SQLite mirror", "audit my frontmatter", "are my notes GL-002 compliant", "the SQLite migration parsed zero rows" | Silas ([[SOP-002-convert-mypka-to-sqlite]] and frontmatter audits) |
 | "I want to add a new field to all my person/project/goal notes", "extend the schema with `<field>`", schema drift across entity folders | Silas |
 | "I want to build / write / design / produce X" where no current specialist fits | Nolan (start a hire) |

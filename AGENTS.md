@@ -45,7 +45,7 @@ The **team** is not bounded by the folder. The team is a personality with contra
 
 The only acceptable "no" is when the user explicitly says they do not want to grow the team for this work.
 
-## The team (8 specialists)
+## The team (9 specialists)
 
 See [[Team/agent-index]] for the full routing table. Six core specialists ship in the scaffold. The team grows from here: hire new specialists through Nolan, or install Expansion Packs (available with the myICOR membership on the Expansion Packs page) via [[WS-003-install-an-expansion]].
 
@@ -59,6 +59,7 @@ See [[Team/agent-index]] for the full routing table. Six core specialists ship i
 | Silas | [[Team/Silas - Database Architect/AGENTS]] | myPKA structure, frontmatter integrity, SQLite conversion. Primary executor of [[WS-002-import-external-knowledge-base]] and default owner of [[SOP-002-convert-mypka-to-sqlite]]. |
 | Rex | [[Team/Rex - Senior Administrator/AGENTS]] | Senior Administrator (Linux-first, Windows-secondary). Server provisioning, Linux/Windows admin, automation/IaC (Ansible, Terraform, pyinfra), security hardening, monitoring, backup/disaster recovery, incident response, infrastructure audits. |
 | Otto | [[Team/Otto - Auto Procurement Specialist/AGENTS]] | Auto Procurement Specialist — personal/family car buying, negotiation, trade-in, financing review. |
+| Dex | [[Team/Dex - Local-AI Developer/AGENTS]] | Local-AI Developer — ~/Projects/local-ai Python, Ollama + Chroma + RAG, benchmarks, Modelfiles. |
 
 **SOPs are skills, not 1:1 ownership.** Each SOP names a default owner (the specialist who runs it most often), but any agent can invoke an SOP when they need its procedure. Think of SOPs the way Claude skills work — discrete, named, callable. Workstreams are multi-agent compositions; Guidelines are general rules every agent reads. See [[Team Knowledge/INDEX]].
 
