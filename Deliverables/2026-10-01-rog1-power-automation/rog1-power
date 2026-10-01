@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# rog1-power — FINAL, installed to ~/.local/bin/rog1-power (chmod +x)
+# Usage: rog1-power --auto | --battery-saver-on | --restore | --status
+# Policy (agreed 2026-10-01):
+#   on battery + HDMI disconnected -> Quiet + power-saver + laptop 40%, skip ddcutil
+#   on battery + HDMI connected    -> Quiet + power-saver + laptop 40% + external 40 via ddcutil
+#   on AC                          -> Performance + balanced + laptop 70% + external 70 if present
+set -euo pipefail
+
+LAPTOP_LOW=40%
+LAPTOP_NORMAL=70%
+EXT_LOW=40
+EXT_NORMAL=70
+
+main() {
+  case "${1:---auto}" in
+  --auto)
+    if is_on_battery; then
+      battery_saver_on
+    else
+      restore_docked
+    fi
+    ;;
+  --battery-saver-on) battery_saver_on ;;
+  --restore) restore_docked ;;
+  --status)
+    echo -n "power: "
+    is_on_battery && echo "on-battery" || echo "on-AC"
+    echo -n "hdmi: "
+    is_hdmi_connected && echo "connected" || echo "disconnected"
+    echo -n "asus profile: "
+    asusctl profile get 2>/dev/null || true
+    echo -n "brightness: "
+    brightnessctl get 2>/dev/null || true
+    upower -d 2>/dev/null | grep -m1 energy-rate || true
+    ;;
+  *)
+    echo "usage: $0 --auto | --battery-saver-on | --restore | --status" >&2
+    exit 2
+    ;;
+  esac
+}
+
+is_on_battery() {
+  [[ "$(cat /sys/class/power_supply/ADP0/online 2>/dev/null || echo 1)" == "0" ]]
+}
+
+is_hdmi_connected() {
+  local f
+  for f in /sys/class/drm/card*-HDMI-*/status; do
+    [[ "$(cat "$f" 2>/dev/null)" == "connected" ]] && return 0
+  done
+  return 1
+}
+
+set_external() {
+  local level="$1"
+  if is_hdmi_connected; then
+    ddcutil --display 1 setvcp 10 "$level" 2>&1 || echo "warn: ddcutil failed, continuing"
+  else
+    echo "HDMI disconnected - skipping ddcutil (correct)"
+  fi
+}
+
+battery_saver_on() {
+  # order matters: powerprofilesctl first, asusctl platform profile last (final word)
+  powerprofilesctl set power-saver || echo "warn: powerprofilesctl failed"
+  asusctl profile set Quiet
+  brightnessctl set "$LAPTOP_LOW" -q
+  if is_hdmi_connected; then
+    set_external "$EXT_LOW"
+  else
+    echo "HDMI disconnected - skipping ddcutil (correct)"
+  fi
+  echo "battery-saver ON"
+}
+
+restore_docked() {
+  # order matters: powerprofilesctl first, asusctl platform profile last (final word)
+  powerprofilesctl set balanced || echo "warn: powerprofilesctl failed"
+  asusctl profile set Performance
+  brightnessctl set "$LAPTOP_NORMAL" -q
+  if is_hdmi_connected; then
+    set_external "$EXT_NORMAL"
+  fi
+  echo "restored to docked defaults"
+}
+
+# source-safe: sourcing this file is a no-op; call main <args> explicitly (e.g. main --status)
+(return 0 2>/dev/null) || main "$@"

@@ -1,0 +1,8 @@
+# rog1-power.service — FINAL for review, not yet installed.
+# Location when installed: ~/.config/systemd/user/rog1-power.service
+[Unit]
+Description=ROG1 auto battery-saver / docked restore
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/rog1-power --auto

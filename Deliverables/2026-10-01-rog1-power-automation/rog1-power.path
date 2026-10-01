@@ -1,0 +1,12 @@
+# rog1-power.path — FINAL for review, not yet installed.
+# Location when installed: ~/.config/systemd/user/rog1-power.path
+# Event-driven AC watcher (no polling, no timer). Timer kept in back pocket per 2026-10-01.
+[Unit]
+Description=ROG1 watch AC online state
+
+[Path]
+PathChanged=/sys/class/power_supply/ADP0/online
+Unit=rog1-power.service
+
+[Install]
+WantedBy=default.target
